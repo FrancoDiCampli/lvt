@@ -20,7 +20,7 @@
 </head>
 <body class="bg-gray-200">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -69,8 +69,35 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
+        <nav class="bg-white flex items-center justify-between">
+            <div>
+                <a href="">
+                      <img src="{{asset('img/logo.png')}}" class="w-32 h-32 p-5" alt="">
+
+                </a>
+
+            </div>
+            <div class="p-5 font-montserrat ">
+                @guest
+                    <span><a href="{{ route('login') }}" class="hover:text-teal-600">Login</a></span>
+                    <span><a href="{{ route('register') }}" class="hover:text-teal-600">Register</a></span>
+                @else
+                <span>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                     {{ __('Logout') }}
+                 </a>
+                </span>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" >
+                    @csrf
+                </form>
+                @endguest
+            </div>
+        </nav>
         <main class="py-4">
             @yield('content')
         </main>

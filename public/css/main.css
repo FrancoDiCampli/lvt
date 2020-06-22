@@ -17883,6 +17883,14 @@ video {
   background-color: seagreen;
 }
 
+.bg-gradient-green{
+  background-image: linear-gradient(to right, rgba(18, 185, 101, 0.966), rgb(17, 94, 55) );
+}
+
+.bg-gradient-red{
+  background-image: linear-gradient(to right, rgba(226, 55, 83, 0.966), rgb(114, 8, 34) );
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
