@@ -6,3 +6,8 @@
 
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&family=Roboto:wght@100;400&family=Rubik:wght@300;900&display=swap');
+
+.is-invalid{
+    color: red;
+    background-color: seagreen;
+}
