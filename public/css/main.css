@@ -17878,6 +17878,12 @@ video {
   transition-delay: 1000ms;
 }
 
+:root {
+  --primary--color: #028c84;
+  --secondary--color: #1e5e7f;
+  --terciary--color: #0e2a3f;
+}
+
 .is-invalid{
   color: red;
   background-color: seagreen;
@@ -17889,6 +17895,32 @@ video {
 
 .bg-gradient-red{
   background-image: linear-gradient(to right, rgba(226, 55, 83, 0.966), rgb(114, 8, 34) );
+}
+
+.sidebar-expanded{
+  position: absolute;
+  width: 80%;
+  background-color:var(--primary--color);
+  z-index: 1000;
+  transition: width 1s;
+  margin: 0px;
+  padding: 0px;
+  top: 0px;
+  left: 0px;
+  color: white;
+  height: 100vh;
+}
+
+.sidebar-expanded h1{
+  margin-top: 5.25rem;
+}
+
+.sidebar-expanded span{
+  display: block;
+}
+
+.sidebar-expanded a{
+  color: white;
 }
 
 @media (min-width: 640px) {
