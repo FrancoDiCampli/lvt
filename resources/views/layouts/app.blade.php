@@ -81,8 +81,8 @@
             </div>
             <div class="p-5 font-montserrat ">
                 @guest
-                    <span><a href="{{ route('login') }}" class="hover:text-teal-600">Login</a></span>
-                    <span><a href="{{ route('register') }}" class="hover:text-teal-600">Register</a></span>
+                    <span class="@if(Request::is('login')) {{'text-red-300 border-b-2 '}} @endif"><a href="{{ route('login') }}" class="hover:text-teal-600">Login</a></span>
+                    <span class="@if(Request::is('register')) {{'text-red-300 border-b-2 '}} @endif"><a href="{{ route('register') }}" class="hover:text-teal-600">Register</a></span>
                 @else
                 <span>
                     <a class="dropdown-item" href="{{ route('logout') }}"
