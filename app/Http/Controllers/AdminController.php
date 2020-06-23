@@ -21,12 +21,10 @@ class AdminController extends Controller
     public function student(){
 
         $user = Auth::user();
-        // $deliveries =  Delivery::where('user_id',$user->id)->get();
+        $deliveries = Delivery::where('user_id',$user->id)->get();
+        $jobs = StudentsTrait::pendding();
 
-        // $jobs = StudentsTrait::pendding();
-        // $subjects = $user->materias();
-
-        return view('admin.students.index',compact('user'));
+        return view('admin.students.index',compact('user','jobs','deliveries'));
 
 
     }
