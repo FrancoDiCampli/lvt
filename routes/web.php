@@ -21,6 +21,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('deliveries','StudentController@deliveries')->name('student.deliveries');
 
+    Route::resource('subjects', 'SubjectController');
+
+    Route::resource('enrollments', 'EnrollmentController');
 
 
 });
