@@ -19,11 +19,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('teacher', 'AdminController@teacher')->name('admin.teacher');
     Route::get('student', 'AdminController@student')->name('admin.student');
 
+    // Students Routes
     Route::get('deliveries','StudentController@deliveries')->name('student.deliveries');
+    Route::get('penddings','StudentController@penddings')->name('student.penddings');
+    Route::get('deliver/{job}', 'StudentController@deliver')->name('deliver');
+    Route::post('deliver', 'StudentController@store')->name('deliver.store');
+
 
     Route::resource('subjects', 'SubjectController');
 
     Route::resource('enrollments', 'EnrollmentController');
+
+    // Jobs
+    Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
 
 
 });
