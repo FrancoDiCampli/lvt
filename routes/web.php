@@ -25,7 +25,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('deliver/{job}', 'StudentController@deliver')->name('deliver');
     Route::post('deliver', 'StudentController@store')->name('deliver.store');
 
+
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
