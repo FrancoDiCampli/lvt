@@ -26,11 +26,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('deliver', 'StudentController@store')->name('deliver.store');
 
 
+    Route::resource('subjects', 'SubjectController');
+
+    Route::resource('enrollments', 'EnrollmentController');
+
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
 
+
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
