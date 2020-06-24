@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -37,4 +38,38 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function materias(){
+        $matri = Enrollment::where('user_id',Auth::user()->id)->where('cicle',2020)->get();
+        $curso = Course::where('id',$matri[0]->course_id)->get();
+        return Subject::where('course_id',$curso[0]->id)->get();
+
+    }
+
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    // Teachers
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class);
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
 }
