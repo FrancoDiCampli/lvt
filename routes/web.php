@@ -42,3 +42,4 @@ Route::group(['middleware' => 'auth'], function () {
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
 });
+
