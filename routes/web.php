@@ -20,10 +20,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('student', 'AdminController@student')->name('admin.student');
 
     // Students Routes
-    Route::get('deliveries','StudentController@deliveries')->name('student.deliveries');
-    Route::get('penddings','StudentController@penddings')->name('student.penddings');
+    Route::get('deliveries', 'StudentController@deliveries')->name('student.deliveries');
+    Route::get('penddings', 'StudentController@penddings')->name('student.penddings');
     Route::get('deliver/{job}', 'StudentController@deliver')->name('deliver');
     Route::post('deliver', 'StudentController@store')->name('deliver.store');
+
+    // Teachers
+    Route::resource('teachers', 'TeacherController')->except(['create', 'index']);
+    Route::get('nuevaTarea/{subject}', 'TeacherController@nuevaTarea')->name('nuevaTarea');
+    Route::get('teacher/create/{subject}', 'TeacherController@create')->name('teacher.create');
+    Route::get('teacher/index/{subject}', 'TeacherController@index')->name('teacher.index');
+    Route::get('teacher/descargar/{job}', 'TeacherController@descargar')->name('teacher.descargar');
+    Route::get('teacher/descargarDelivery/{job}', 'TeacherController@descargarDelivery')->name('teacher.descargarDelivery');
+    Route::post('teacher/filtrar', 'TeacherController@filtrar')->name('teacher.filtrar');
 
 
     Route::resource('subjects', 'SubjectController');
@@ -32,7 +41,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
-
-
 });
 

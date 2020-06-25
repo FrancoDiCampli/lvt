@@ -13,7 +13,7 @@
          <div class="top-navbar w-10/12 mx-auto flex items-center justify-between p-5 border-b border-gray-600">
                 <h1 class="text-teal-500 font-rubik text-2xl ">School<span class="font-semibold">Mate</span></h1>
 
-                {{-- <div class="text-xs md:text-base text-right text-gray-600 ">
+                <div class="text-xs md:text-base text-right text-gray-600 ">
                     <a href="" class="">admin@mail.com</a> |
                     <span>
                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -26,7 +26,7 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                         @csrf
                     </form>
-                </div> --}}
+                </div>
 
                 <div  class="relative w-6/12 text-right">
                     <button class="focus:outline-none " onclick="dropMenu()">
