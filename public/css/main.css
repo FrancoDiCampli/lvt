@@ -17923,6 +17923,11 @@ video {
   color: white;
 }
 
+.shown{
+  display: block;
+  transition: display 2s;
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;

@@ -13,7 +13,7 @@
          <div class="top-navbar w-10/12 mx-auto flex items-center justify-between p-5 border-b border-gray-600">
                 <h1 class="text-teal-500 font-rubik text-2xl ">School<span class="font-semibold">Mate</span></h1>
 
-                <div class="text-xs text-right text-gray-600 ">
+                {{-- <div class="text-xs md:text-base text-right text-gray-600 ">
                     <a href="" class="">admin@mail.com</a> |
                     <span>
                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -26,6 +26,16 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                         @csrf
                     </form>
+                </div> --}}
+
+                <div  class="relative w-6/12 text-right">
+                    <button class="focus:outline-none " onclick="dropMenu()">
+                        <img class="mt-2 w-8 h-8 rounded-full" src="{{asset('img/avatar/person_1.jpg')}}" alt="">
+                    </button>
+                    <div id="dropdown" class="hidden transition-all delay-100 bg-white absolute right-0 text-sm text-left w-8/12 p-2 rounded-sm">
+                        <a href="" class="block ">Perfil</a>
+                        <a href="" class="block ">Logout</a>
+                    </div>
                 </div>
         </div>
 
@@ -136,6 +146,18 @@
         marker.classList.toggle("hidden");
 
     }
+
+    let dd = document.getElementById('dropdown')
+    function dropMenu(){
+
+         dd.classList.toggle("hidden");
+    }
+
+    let main = document.getElementById('app')
+    main.addEventListener('click',function(e){
+        dd.classList.toggle("shown");
+    })
+
 </script>
 </body>
 </html>
