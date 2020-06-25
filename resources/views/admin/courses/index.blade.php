@@ -2,7 +2,20 @@
 
 @section('content')
 
+
+
 <div class="container font-montserrat text-sm ">
+    {{-- Mensaje de sesion --}}
+    <div class="container :flex-auto">
+        @if (session('status'))
+                <div class="flex items-center bg-blue-900 text-white text-sm font-bold px-4 py-3" role="alert">
+                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                    <p>{{ session('status') }}</p>
+                </div>
+            </div>
+        @endif
+    </div>
+
     <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
         <div class="card-title bg-white w-full p-1 md:p-5  border-b flex items-center justify-between md:justify-between ">
            <h1 class="text-teal-600 font-semibold">Courses</h1>
@@ -28,7 +41,7 @@
                         <td  class="w-3/12">{{$course->code}}</td>
                         <td  class="md:w-3/12 w-9/12">
                             <div class="flex justify-center">
-                                <a href="" class="mx-1 text-teal-400">
+                                <a href="{{route('courses.edit', $course->id)}} " class="mx-1 text-teal-400">
                                 <svg aria-hidden="true" data-prefix="fas" data-icon="pencil-alt" class="h-4 w-4 svg-inline--fa fa-pencil-alt fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
                                 </a>
                                 <a href="" class="mx-1 text-teal-600">

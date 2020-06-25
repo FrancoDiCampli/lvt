@@ -56,4 +56,11 @@ class StudentController extends Controller
 
         return redirect()->to('/student');
     }
+
+    public function deliveries(){
+
+        $deliveries = Delivery::where('user_id',Auth::id())->get();
+       return view('admin.students.deliveries',compact('deliveries'));
+    }
+
 }

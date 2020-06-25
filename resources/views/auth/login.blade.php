@@ -3,7 +3,7 @@
 @section('content')
     <div class="container font-montserrat">
         <div class="card w-11/12 md:w-5/12 rounded-sm bg-gray-100 mx-auto mt-10 shadow-lg">
-            <div class="card-title bg-white p-0 w-full p-5 border-b">
+            <div class="card-title bg-white w-full p-5 border-b">
                <h1 class="text-center font-semibold text-teal-600">Welcome</h1>
             </div>
             <div class="card-body py-5">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
@@ -24,5 +25,22 @@ class CourseController extends Controller
 
        Course::create($course);
        return redirect()->route('courses.index');
+    }
+
+    public function edit($id){
+        $course = Course::find($id);
+
+        return view('admin.courses.edit', compact('course'));
+    }
+
+    public function update(Request $request, Course $course){
+        $courseValidate = $request->validate([
+            'name' => 'required|max:20',
+            'code' => ['required', 'max:20', Rule::unique('courses')->ignore($course)],
+        ]);
+
+        $course->update($courseValidate);
+
+        return redirect()->route('courses.index')->withStatus(__('Course actualizado correctamente.'));
     }
 }

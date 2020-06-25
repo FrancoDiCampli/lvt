@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('deliver', 'StudentController@store')->name('deliver.store');
 
     //Subjects
+
     Route::resource('subjects', 'SubjectController');
 
     //Enrollments
@@ -34,4 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
 
+
 });
+
