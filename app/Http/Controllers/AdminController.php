@@ -12,20 +12,18 @@ class AdminController extends Controller
 {
     public function teacher()
     {
-
-        // $year = now()->format('Y');
-        // $subjects = TeachersTrait::subjects($year);
-        return view('admin.teachers.index');
+        $year = now()->format('Y');
+        $subjects = TeachersTrait::subjects($year);
+        return view('admin.teachers.index', compact('subjects'));
     }
 
-    public function student(){
+    public function student()
+    {
 
         $user = Auth::user();
-        $deliveries = Delivery::where('user_id',$user->id)->get();
+        $deliveries = Delivery::where('user_id', $user->id)->get();
         $jobs = StudentsTrait::pendding();
 
-        return view('admin.students.index',compact('user','jobs','deliveries'));
-
-
+        return view('admin.students.index', compact('user', 'jobs', 'deliveries'));
     }
 }
