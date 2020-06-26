@@ -14,6 +14,7 @@ class AdminController extends Controller
     {
         $year = now()->format('Y');
         $subjects = TeachersTrait::subjects($year);
+
         return view('admin.teachers.index', compact('subjects'));
     }
 

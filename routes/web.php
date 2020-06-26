@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('penddings', 'StudentController@penddings')->name('student.penddings');
     Route::get('deliver/{job}', 'StudentController@deliver')->name('deliver');
     Route::post('deliver', 'StudentController@store')->name('deliver.store');
+    Route::put('updateDelivery/{id}','StudentController@updateDelivery')->name('update.delivery');
 
     // Teachers
     Route::resource('teachers', 'TeacherController')->except(['create', 'index']);
@@ -33,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('teacher/descargar/{job}', 'TeacherController@descargar')->name('teacher.descargar');
     Route::get('teacher/descargarDelivery/{job}', 'TeacherController@descargarDelivery')->name('teacher.descargarDelivery');
     Route::post('teacher/filtrar', 'TeacherController@filtrar')->name('teacher.filtrar');
+    // Ver tarea con su entrega
+    Route::get('entrega/{delivery}', 'TeacherController@delivery')->name('teacher.delivery');
 
 
     Route::resource('subjects', 'SubjectController');

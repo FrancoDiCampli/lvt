@@ -2,10 +2,11 @@
 
 @tailwind components;
 
+
 @tailwind utilities;
 
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&family=Roboto:wght@100;400&family=Rubik:wght@300;900&display=swap');
+
 :root {
     --primary--color: #028c84;
     --secondary--color: #1e5e7f;
@@ -52,5 +53,18 @@
 .shown{
     display: block;
     transition: display 2s;
+
+}
+
+.top-10{
+    top: .5rem;
+    right: 1rem;
+}
+
+.btn-teal{
+    @apply mb-5 font-semibold w-8/12 flex mx-auto text-center justify-center bg-teal-600 text-gray-200 px-5 py-2
+}
+
+.card{
 
 }

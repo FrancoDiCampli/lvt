@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Job;
 use App\Subject;
+use App\Delivery;
 use Illuminate\Http\Request;
 use App\Traits\TeachersTrait;
 use Illuminate\Support\Facades\DB;
@@ -91,10 +92,7 @@ class TeacherController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
 
     public function destroy($id)
     {
@@ -121,5 +119,11 @@ class TeacherController extends Controller
         }
 
         return $subject = Subject::where('name', $filtros->first())->with('jobs')->get();
+    }
+
+    public function delivery($delivery){
+
+        $delivery =  Delivery::find($delivery);
+        return view('admin.teachers.delivery', compact('delivery'));
     }
 }
