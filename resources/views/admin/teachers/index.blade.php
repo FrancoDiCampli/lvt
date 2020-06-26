@@ -16,7 +16,10 @@
             </a>
         </div>
         <div>
+
+            <h1 class="text-sm">{{$subject->course->name}}</h1>
             <h1 class="text-sm">{{$subject->name}}</h1>
+        <span class="text-xs font-semibold">Code:{{$subject->code}}</span>
         </div>
     </div>
     @endforeach

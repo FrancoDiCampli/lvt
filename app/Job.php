@@ -2,11 +2,19 @@
 
 namespace App;
 
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
     protected $guarded = [];
+
+    protected $state = ['inactive', 'active', 'completed', 'finished'];
+
+    public function state($value)
+    {
+        return Arr::get($this->state, $value);
+    }
 
     public function subject()
     {

@@ -63,4 +63,14 @@ class StudentController extends Controller
        return view('admin.students.deliveries',compact('deliveries'));
     }
 
+    public function updateDelivery(Request $request, $id)
+    {
+        Delivery::where('id', $id)
+
+          ->update(['state' => $request->state]);
+
+          return redirect()->route('teachers.show', $request->id_job);
+        // return view('teachers.show', $request->id_job);
+    }
+
 }

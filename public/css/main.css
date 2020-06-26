@@ -17923,6 +17923,40 @@ video {
   color: white;
 }
 
+.shown{
+  display: block;
+  transition: display 2s;
+}
+
+.top-10{
+  top: .5rem;
+  right: 1rem;
+}
+
+.btn-teal{
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  width: 66.666667%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  justify-content: center;
+  --bg-opacity: 1;
+  background-color: #319795;
+  background-color: rgba(49, 151, 149, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #edf2f7;
+  color: rgba(237, 242, 247, var(--text-opacity));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem
+}
+
+.card{
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;

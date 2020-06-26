@@ -15,10 +15,16 @@ class EnrollmentController extends Controller
     }
 
     public function create(){
-        $students = User::role('student')->get();
-        $matriculados =  Enrollment::where('cicle',2020)->get();
+
+
+        $enrolled =  Enrollment::where('cicle',2020)->get();
 
         $courses = Course::all();
+
+        $students = User::role('student')->get();
+
+        $students = $students->except($enrolled->modelkeys());
+
         return view('admin.enrollments.create',compact('students','courses'));
     }
 

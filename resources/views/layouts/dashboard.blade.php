@@ -7,13 +7,13 @@
     <title>Document</title>
 <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
-<body class="bg-gray-200">
+<body class="bg-gray-200 font-montserrat" id="all">
 
-    <main id="app">
-         <div class="top-navbar w-10/12 mx-auto flex justify-between p-5 border-b border-gray-600">
-                <h1 class=" text-teal-500 font-rubik text-2xl ">School<span class="font-semibold">Mate</span></h1>
+    <main id="app" class="">
+         <div class="top-navbar w-10/12 mx-auto flex items-center justify-between p-5 border-b border-gray-600">
+                <h1 class="text-teal-500 font-rubik text-2xl ">School<span class="font-semibold">Mate</span></h1>
 
-                <div class=" text-right text-blue-500 ">
+                <div class="text-xs md:text-base text-right text-gray-600 ">
                     <a href="" class="">admin@mail.com</a> |
                     <span>
                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -27,19 +27,37 @@
                         @csrf
                     </form>
                 </div>
+
+                <div  class="relative w-6/12 text-right">
+
+                    <div id="dropdown" class="hidden transition-all delay-100 bg-white absolute right-0 text-sm text-left w-8/12 p-2 rounded-sm">
+                        <a href="" class="block ">Perfil</a>
+                        <a href="" class="block ">Logout</a>
+                    </div>
+                    <button onclick="setRes()" class="md:hidden text-gray-700 mt-5 ml-5">
+                        <svg aria-hidden="true" data-prefix="fas" data-icon="bars"
+                            class="h-5 w-5 svg-inline--fa fa-bars fa-w-14"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 448 512">
+                            <path id="marker" class="hidden" fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/>
+                            <path id="bar" fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/>
+                        </svg>
+
+                    </button>
+                </div>
         </div>
 
-        <div class="container mx-auto flex md:p-5 relative">
+        <div class="container mx-auto flex md:p-5 relative px-6 ">
 
-            <div id="sidebar" class="w-2/12 transition-all delay-75  m-0 p-0 mx-auto text-left" >
+            <div id="sidebar" class="md:block w-0 transition-all delay-75  m-0 p-0 mx-auto text-left" >
                 <button onclick="setRes()" class="md:hidden text-gray-700 mt-5 ml-5">
-                    <svg aria-hidden="true" data-prefix="fas" data-icon="bars"
+                    {{-- <svg aria-hidden="true" data-prefix="fas" data-icon="bars"
                         class="h-5 w-5 svg-inline--fa fa-bars fa-w-14"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 448 512">
                         <path id="marker" class="hidden" fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/>
                         <path id="bar" fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/>
-                    </svg>
+                    </svg> --}}
 
                 </button>
                 <div class="md:mt-12 font-montserrat ">
@@ -79,45 +97,15 @@
             </div>
 
 
-            <div class="main-content  md:w-10/12 w-full">
+            <div class="main-content  md:w-10/12 w-full md:ml-5 px-5">
 
 
-                <div class="breadcum mt-10  text-sm ">
+                <div class="breadcum mt-10  text-sm hidden md:block">
                     <span  class="text-gray-700">Enrollments>Course>Subject</span>
                 </div>
 
                 @yield('content')
 
-                {{-- <div class="card bg-white rounded-lg font-montserrat">
-                    <div class="card-title p-5">
-                        Franco Di Campli
-                    </div>
-
-                    <div class="card-body flex justify-around">
-                        <div class="">
-                            <div class="m-2">
-                                <span class="font-semibold">User ID</span>
-                                <p>franco@mail.com</p>
-                            </div>
-                            <div class="m-2">
-                                <span class="font-semibold">Role</span>
-                                <p>admin</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="m-2">
-                                <span class="font-semibold">Created</span>
-                                <p>22-07-81</p>
-                            </div>
-                            <div class="m-2">
-                                <span class="font-semibold">State</span>
-                                <p>Active</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div> --}}
 
             </div>
 
@@ -136,6 +124,18 @@
         marker.classList.toggle("hidden");
 
     }
+
+    // let dd = document.getElementById('dropdown')
+    // function dropMenu(){
+
+    //      dd.classList.toggle("hidden");
+    // }
+
+    // let main = document.getElementById('app')
+    // main.addEventListener('click',function(e){
+    //     dd.classList.toggle("shown");
+    // })
+
 </script>
 </body>
 </html>
