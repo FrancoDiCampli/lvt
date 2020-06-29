@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('deliver/{job}', 'StudentController@deliver')->name('deliver');
     Route::post('deliver', 'StudentController@store')->name('deliver.store');
     Route::put('updateDelivery/{id}','StudentController@updateDelivery')->name('update.delivery');
+    Route::get('delivery/{id}','StudentController@show')->name('delivery.show');
+    Route::post('add/comment','StudentController@addComment')->name('comment.store');
 
     // Teachers
     Route::resource('teachers', 'TeacherController')->except(['create', 'index']);

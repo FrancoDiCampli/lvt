@@ -32,4 +32,8 @@ class Delivery extends Model
         return $this->job();
 
     }
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

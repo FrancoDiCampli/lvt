@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Job;
+use App\Comment;
 use App\Delivery;
 use Illuminate\Http\Request;
 use App\Traits\StudentsTrait;
@@ -41,12 +42,24 @@ class StudentController extends Controller
                     $request->file->move($path, $nameFile);
                 }
 
-                Delivery::create([
+                $delivery = Delivery::create([
                     'job_id' => $request->job,
                     'file_path' => $nameFile,
                     'state' => 1,
                     'user_id' => Auth::user()->id,
                 ]);
+
+                // Si tiene comentarios los crea
+                if($request->comment){
+                   Comment::create([
+                       'user_id'=>Auth::user()->id,
+                       'delivery_id'=> $delivery->id,
+                       'comment'=> $request->comment,
+                   ]);
+                }
+
+
+
             });
 
             session()->flash('message', 'Entrega creada');
@@ -59,7 +72,8 @@ class StudentController extends Controller
 
     public function deliveries(){
 
-        $deliveries = Delivery::where('user_id',Auth::id())->get();
+        $deliveries = Delivery::where('user_id',Auth::id())->with('comments')->get();
+
        return view('admin.students.deliveries',compact('deliveries'));
     }
 
@@ -68,6 +82,23 @@ class StudentController extends Controller
         Delivery::where('id', $id)
 
           ->update(['state' => $request->state]);
+    }
+
+    public function show($id){
+       $delivery = Delivery::find($id);
+       return view('admin.students.delivery',compact('delivery'));
+
+    }
+
+    public function addComment(Request $request){
+
+            Comment::create([
+                'user_id'=>Auth::user()->id,
+                'delivery_id'=> $request->delivery,
+                'comment'=> $request->comment,
+            ]);
+
+        return redirect()->back();
     }
 
 }

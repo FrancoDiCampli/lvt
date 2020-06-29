@@ -30,6 +30,15 @@
 
                         </div>
                     </div>
+
+                    <div class="">
+                        <label for="">Leave a comment</label>
+                        <button onclick="addComment(event)" class="bg-teal-600 text-white text-2xl p-2  ">+</button>
+                    </div>
+                    <div id="comment">
+
+                    </div>
+
                 </div>
 
                 <button type="submit" class="w-8/12 mb-5 font-semibold md:w-5/12 py-2 flex mx-auto  justify-center bg-teal-600 text-gray-200 ">Save</button>
@@ -40,12 +49,24 @@
 
 @push('js')
     <script>
+        let comment = `<div class="">
+                        <label for="">Comment</label>
+                        <textarea name="comment" id="" cols="60" rows="5" class=""></textarea>
+                        </div> `
         let delivery = document.getElementById('delivery')
         delivery.addEventListener('submit',function(e){
             e.preventDefault();
            delivery.submit();
 
         })
+
+        let com = document.getElementById('comment')
+
+        function addComment(event){
+            event.preventDefault()
+
+            com.innerHTML = comment
+        }
 
         function setName(){
              let fileName = document.getElementById('fileName')
