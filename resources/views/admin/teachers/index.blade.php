@@ -1,10 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="flex-wrap md:flex lg:flex">
+<script src='https://meet.jit.si/external_api.js'></script>
+<div class="grid grid-cols-1 lg:grid-cols-2">
     @foreach ($subjects as $subject)
     <div
-        class="mx-2 text-white card bg-gradient-green rounded-sm font-montserrat w-auto lg:w-5/12 md:w-5/12 flex p-5 justify-between mt-5 items-center">
+        class="mx-2 text-white card bg-gradient-green rounded-sm font-montserrat w-auto flex p-5 justify-between mt-5 items-center">
         <div>
             <a href="{{route('teacher.index', $subject->id)}}">
                 <svg aria-hidden="true" data-prefix="fas" data-icon="clipboard-list"
@@ -16,14 +17,50 @@
             </a>
         </div>
         <div>
-
-            <h1 class="text-sm">{{$subject->course->name}}</h1>
             <h1 class="text-sm">{{$subject->name}}</h1>
-        <span class="text-xs font-semibold">Code:{{$subject->code}}</span>
         </div>
     </div>
     @endforeach
+</div>
+
+{{-- Jitsi --}}
+
+<div hidden>
+    <div class="w-auto rounded overflow-hidden shadow-lg m-2">
+        <div class="font-bold text-xl m-2">
+            Jitsi
+        </div>
+        <div class="px-6 py-4">
+            <button onclick="iniciar('{{$subject}}','{{now()->format('dmYHi')}}','{{auth()->user()}}')"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="start">Iniciar</button>
+            <div class="rounded m-2" id="jitsi-container">
+            </div>
+        </div>
+    </div>
 
 </div>
 
 @endsection
+
+@push('js')
+<script>
+    function iniciar(subject, fecha, user){
+        var usuario = JSON.parse(user);
+        var materia = JSON.parse(subject);
+        var container = document.getElementById('jitsi-container');
+        var domain = "meet.jit.si";
+        var options = {
+            "roomName": materia.name+'-'+fecha,
+            "parentNode": container,
+            "width": 800,
+            "height": 600,
+            userInfo: {
+                email: usuario.email,
+                displayName: usuario.name
+            }
+        };
+        api = new JitsiMeetExternalAPI(domain, options);
+    }
+
+</script>
+@endpush
