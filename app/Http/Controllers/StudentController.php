@@ -70,7 +70,6 @@ class StudentController extends Controller
           ->update(['state' => $request->state]);
 
           return redirect()->route('teachers.show', $request->id_job);
-        // return view('teachers.show', $request->id_job);
     }
 
 }
