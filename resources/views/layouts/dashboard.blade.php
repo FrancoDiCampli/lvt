@@ -93,6 +93,19 @@
                         class="h-5 w-5  svg-inline--fa fa-tags fa-w-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M497.941 225.941L286.059 14.059A48 48 0 00252.118 0H48C21.49 0 0 21.49 0 48v204.118a48 48 0 0014.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882 0l204.118-204.118c18.745-18.745 18.745-49.137 0-67.882zM112 160c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882 0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397 0h48.721a48 48 0 0133.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882z"/></svg>
                         <span class="mx-2 hidden md:block">Subjects</span>
                     </a>
+
+                    <button onclick="showMenu()" class="focus:outline-none flex md:justify-start justify-center text-gray-600 mt-5">
+                        <svg aria-hidden="true" data-prefix="fas" data-icon="user-graduate"
+                        class="h-5 w-5 svg-inline--fa fa-user-graduate fa-w-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M319.4 320.6L224 416l-95.4-95.4C57.1 323.7 0 382.2 0 454.4v9.6c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-9.6c0-72.2-57.1-130.7-128.6-133.8zM13.6 79.8l6.4 1.5v58.4c-7 4.2-12 11.5-12 20.3 0 8.4 4.6 15.4 11.1 19.7L3.5 242c-1.7 6.9 2.1 14 7.6 14h41.8c5.5 0 9.3-7.1 7.6-14l-15.6-62.3C51.4 175.4 56 168.4 56 160c0-8.8-5-16.1-12-20.3V87.1l66 15.9c-8.6 17.2-14 36.4-14 57 0 70.7 57.3 128 128 128s128-57.3 128-128c0-20.6-5.3-39.8-14-57l96.3-23.2c18.2-4.4 18.2-27.1 0-31.5l-190.4-46c-13-3.1-26.7-3.1-39.7 0L13.6 48.2c-18.1 4.4-18.1 27.2 0 31.6z"/></svg>
+                        <span class="mx-2 hidden md:block">Users</span>
+
+                    </button>
+                    <ul class="px-5" id="users-admin">
+                        <li><a href="">Profile</a></li>
+                        <li><a href="">Admin Roles</a></li>
+                        <li><a href="">Admin Users</a></li>
+                    <li><a href="{{route('import')}}">Import Data</a></li>
+                    </ul>
                 </div>
             </div>
 
@@ -125,11 +138,10 @@
 
     }
 
-    // let dd = document.getElementById('dropdown')
-    // function dropMenu(){
-
-    //      dd.classList.toggle("hidden");
-    // }
+    let dd = document.getElementById('users-admin')
+    function showMenu(){
+         dd.classList.toggle("hidden");
+    }
 
     // let main = document.getElementById('app')
     // main.addEventListener('click',function(e){

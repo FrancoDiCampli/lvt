@@ -46,5 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
+
+
+    // Nuevas Rutas
+    Route::get('import','UserController@import')->name('import');
+    Route::post('import/users','UserController@importUsers')->name('import.users');
 });
 
