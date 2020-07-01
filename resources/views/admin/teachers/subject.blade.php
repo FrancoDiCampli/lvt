@@ -43,14 +43,12 @@
 
             <div class="flex justify-between items-center">
                 <div class="text-gray-700">
-                    <h1 class="font-semibold pb-2">{{$job->title}}</h1>
-                    {{-- <h3>Limite</h3> --}}
+                    <h1 class="font-semibold">{{$job->title}}</h1>
+                    <h3>Limite</h3>
                     <p class="italic">Fecha limite <span>{{$job->end->format('d-m-Y')}}</span> </p>
                 </div>
                 <div>
-                    {{-- <button class="bg-red-600 rounded-full text-white py-1 px-5">{{$job->state($job->state)}}</button> --}}
-                    <span class="inline-block rounded-full text-green-700 bg-green-200 px-2 py-1 text-xs font-bold mr-3">{{$job->state($job->state)}}</span>
-                </span>
+                    <button class="bg-red-600 rounded-full text-white py-1 px-5">{{$job->state($job->state)}}</button>
                 </div>
             </div>
 
@@ -64,30 +62,20 @@
     <script>
         let fm = document.getElementById('float-menu')
         let oo = document.getElementById('orderOption')
-
         let bt = document.getElementsByClassName('btn')
-
         Array.from(bt).forEach(function(element) {
         element.addEventListener('click', setOrder);
         });
-
         function setOrder(){
             let attribute = this.getAttribute("data-order");
-
             document.getElementById('topic').innerHTML = attribute
-
         }
-
         function toogleFm(){
             fm.classList.toggle('hidden')
-
         }
         function toogleOrder(){
             oo.classList.toggle('hidden')
-
         }
-
-
     </script>
 @endpush
 @endsection

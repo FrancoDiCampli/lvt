@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Subject extends Model
 {
     // protected $guarded = [];
-    protected $fillable = ['name','code','course_id','user_id'];
+    protected $fillable = ['name', 'code', 'course_id', 'user_id'];
 
     public function teacher()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function course()
@@ -21,9 +21,6 @@ class Subject extends Model
 
     public function jobs()
     {
-        return $this->hasMany(Job::class);
+        return $this->hasMany(Job::class)->orderBy('id', 'DESC');
     }
-
-
-
 }

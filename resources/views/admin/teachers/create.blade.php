@@ -1,6 +1,21 @@
 @extends('layouts.dashboard')
 
 @section('content')
+
+@if ($errors->any())
+@foreach ($errors->all() as $error)
+<div class="flex rounded-full items-center bg-red-500 text-white text-sm font-bold m-2 px-4 py-3" role="alert">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exclamation"
+        class="fill-current w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
+        <path fill="currentColor"
+            d="M176 432c0 44.112-35.888 80-80 80s-80-35.888-80-80 35.888-80 80-80 80 35.888 80 80zM25.26 25.199l13.6 272C39.499 309.972 50.041 320 62.83 320h66.34c12.789 0 23.331-10.028 23.97-22.801l13.6-272C167.425 11.49 156.496 0 142.77 0H49.23C35.504 0 24.575 11.49 25.26 25.199z">
+        </path>
+    </svg>
+    <p>{{$error}}</p>
+</div>
+@endforeach
+@endif
+
 <div class="container font-montserrat text-sm ">
     <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
         <div
@@ -102,6 +117,8 @@
                         <button type="submit"
                             class="w-8/12 mb-5 font-semibold md:w-5/12 py-2 flex mx-auto  justify-center bg-teal-600 text-gray-200 hover:bg-teal-400">Save</button>
                     </div>
+
+                    <iframe id="viewer" height="600" width="800" frameborder="0"></iframe>
                 </div>
             </form>
         </div>
@@ -112,12 +129,14 @@
 @push('js')
 <script>
     function setName(){
-            let fileName = document.getElementById('fileName')
-            var cad = fileName.value
-            cad = cad.split('\\')
-            let selected = document.getElementById('selected')
-            selected.innerHTML = cad[2]
-            console.log(cad[2])
+            let fileName = document.getElementById('fileName');
+            var cad = fileName.value;
+            cad = cad.split('\\');
+            let selected = document.getElementById('selected');
+            selected.innerHTML = cad[2];
+            fileDocument = document.getElementById("fileName").files[0];
+            fileDocument_url = URL.createObjectURL(fileDocument);
+            document.getElementById('viewer').setAttribute('src', fileDocument_url);
         }
 </script>
 @endpush

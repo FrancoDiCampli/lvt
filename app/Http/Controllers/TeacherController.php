@@ -42,28 +42,32 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $subject = Subject::find($request->subject);
-        try {
-            DB::transaction(function () use ($request, $subject) {
-                if ($request->file->getClientOriginalExtension() == 'pdf') {
-                    $nameFile = time() . '_' . $subject->name . '.pdf';
-                    $path = public_path('tareas/');
-                    $request->file->move($path, $nameFile);
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'subject' => 'required',
+            'start' => 'required',
+            'end' => 'required'
+        ]);
 
-                    Job::create([
-                        'title' => $request->title,
-                        'description' => $request->description,
-                        'subject_id' => $request->subject,
-                        'file_path' => $nameFile,
-                        'start' => $request->start,
-                        'end' => $request->end,
-                        'state' => 1,
-                    ]);
-                }
-            });
+        if ($request->file->getClientOriginalExtension() == 'pdf' || $request->file->getClientOriginalExtension() == 'docx') {
+            $nameFile = time() . '_' . $subject->name . '.' . $request->file->getClientOriginalExtension();
+            $path = public_path('tareas/');
+            $request->file->move($path, $nameFile);
 
-            session()->flash('message', 'Tarea creada');
-        } catch (\Throwable $th) {
-            session()->flash('message', 'Error');
+            $data['file_path'] = $nameFile;
+            $data['subject_id'] = $data['subject'];
+            $data['state'] = 1;
+
+            Job::create([
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'subject_id' => $data['subject'],
+                'file_path' => $nameFile,
+                'start' => $data['start'],
+                'end' => $data['end'],
+                'state' => 1,
+            ]);
         }
 
         return redirect()->action('TeacherController@index', $subject->id);
@@ -121,7 +125,8 @@ class TeacherController extends Controller
         return $subject = Subject::where('name', $filtros->first())->with('jobs')->get();
     }
 
-    public function delivery($delivery){
+    public function delivery($delivery)
+    {
 
         $delivery =  Delivery::find($delivery);
         return view('admin.teachers.delivery', compact('delivery'));

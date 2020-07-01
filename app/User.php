@@ -39,11 +39,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function materias(){
-        $matri = Enrollment::where('user_id',Auth::user()->id)->where('cicle',2020)->get();
-        $curso = Course::where('id',$matri[0]->course_id)->get();
-        return Subject::where('course_id',$curso[0]->id)->get();
-
+    public function materias()
+    {
+        $matri = Enrollment::where('user_id', Auth::user()->id)->where('cicle', 2020)->get();
+        $curso = Course::where('id', $matri[0]->course_id)->get();
+        return Subject::where('course_id', $curso[0]->id)->get();
     }
 
 
@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function deliveries()
     {
-        return $this->hasMany(Delivery::class);
+        return $this->hasMany(Delivery::class)->orderBy('id', 'DESC');
     }
 
     public function enrollments()

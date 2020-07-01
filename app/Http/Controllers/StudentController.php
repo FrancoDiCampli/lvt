@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Job;
+use App\Comment;
 use App\Delivery;
 use Illuminate\Http\Request;
 use App\Traits\StudentsTrait;
@@ -11,9 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
-    public function penddings(){
+    public function penddings()
+    {
         $jobs = StudentsTrait::pendding();
-        return view('admin.students.penddings',compact('jobs'));
+        return view('admin.students.penddings', compact('jobs'));
     }
 
     public function descargar($job)
@@ -35,18 +37,27 @@ class StudentController extends Controller
 
         try {
             DB::transaction(function () use ($request) {
-                if ($request->file->getClientOriginalExtension() == 'pdf') {
-                    $nameFile = time() . '_' . auth()->user()->name . '.pdf';
+                if ($request->file->getClientOriginalExtension() == 'pdf' || $request->file->getClientOriginalExtension() == 'docx') {
+                    $nameFile = time() . '_' . auth()->user()->name . '.' . $request->file->getClientOriginalExtension();
                     $path = public_path('entregas/');
                     $request->file->move($path, $nameFile);
                 }
 
-                Delivery::create([
+                $delivery = Delivery::create([
                     'job_id' => $request->job,
                     'file_path' => $nameFile,
                     'state' => 1,
                     'user_id' => Auth::user()->id,
                 ]);
+
+                // Si tiene comentarios los crea
+                if ($request->comment) {
+                    Comment::create([
+                        'user_id' => Auth::user()->id,
+                        'delivery_id' => $delivery->id,
+                        'comment' => $request->comment,
+                    ]);
+                }
             });
 
             session()->flash('message', 'Entrega creada');
@@ -57,10 +68,12 @@ class StudentController extends Controller
         return redirect()->to('/student');
     }
 
-    public function deliveries(){
+    public function deliveries()
+    {
 
-        $deliveries = Delivery::where('user_id',Auth::id())->get();
-       return view('admin.students.deliveries',compact('deliveries'));
+        $deliveries = Delivery::where('user_id', Auth::id())->with('comments')->get();
+
+        return view('admin.students.deliveries', compact('deliveries'));
     }
 
     public function updateDelivery(Request $request, $id)
@@ -69,7 +82,24 @@ class StudentController extends Controller
 
           ->update(['state' => $request->state]);
 
-          return redirect()->route('teachers.show', $request->id_job);
+            return redirect()->route('teachers.show', $request->id_job);
     }
 
+    public function show($id)
+    {
+        $delivery = Delivery::find($id);
+        return view('admin.students.delivery', compact('delivery'));
+    }
+
+    public function addComment(Request $request)
+    {
+
+        Comment::create([
+            'user_id' => Auth::user()->id,
+            'delivery_id' => $request->delivery,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->back();
+    }
 }

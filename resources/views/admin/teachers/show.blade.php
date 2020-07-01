@@ -19,9 +19,7 @@
             <p class="mx-2">Order By <span id="topic"></span> </p>
 
             <ul id="orderOption" class="absolute hidden top-10 left-0 bg-white border shadow-lg">
-                <li>item</li>
-                <li>item</li>
-                <li>item</li>
+                <li id="item"></li>
             </ul>
         </button>
         @foreach ($alumnos ?? [] as $alumno)
@@ -66,6 +64,26 @@
 
 @push('js')
     <script>
+        let topicos = {
+            "materias":[
+                {'name':'Matematica'},
+                {'name':'Lengua'},
+                {'name':'Geografia'},
+            ],
+            "estados":[
+                {'name':'Activa'},
+                {'name':'Inactiva'},
+                {'name':'Entregada'},
+                {'name':'Rechazada'},
+                {'name':'Aprobada'},
+            ],
+            "fechas":[
+                {'name':'Trimestre 1'},
+                {'name':'Trimestre 2'},
+                {'name':'Trimestre 3'},
+            ]
+        }
+
         let fm = document.getElementById('float-menu')
         let oo = document.getElementById('orderOption')
 
@@ -77,8 +95,18 @@
 
         function setOrder(){
             let attribute = this.getAttribute("data-order");
-
             document.getElementById('topic').innerHTML = attribute
+
+            let item = document.getElementById('item')
+            item.innerHTML = ''
+            topicos[attribute].forEach(element => {
+                    console.log(element)
+                   item.innerHTML +=  '<li id="item">'+element.name+'</li>'
+            });
+
+            console.log(topicos[attribute])
+
+
 
         }
 
