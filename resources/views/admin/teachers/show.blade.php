@@ -33,7 +33,7 @@
                 </button>
                     <div id="float-menu" class="hidden border bg-white absolute p-2 text-sm w-6/12 md:w-3/12  top-10 right-0 shadow-lg
                     rounded-sm" >
-                        <a href="{{route('teacher.delivery', $alumno['delivery'][0]->id)}}" class="block py-2">Entrega</a>
+                        <a href="{{route('teacher.delivery', $alumno['delivery'][0]->id)}}" class="block py-2">Entregas</a>
 
                         <a href="{{route('teacher.descargarDelivery', $alumno['delivery'][0]->file_path)}}" class="block py-2">Descargar</a>
                 </div>
@@ -42,13 +42,12 @@
 
             <div class="flex justify-between items-center">
                 <div class="text-gray-700">
-                    <h1 class="pb-2">{{$job->title}}</h1>
+                    <h1 >{{$job->title}}</h1>
                     <h3 class="font-semibold">{{$alumno['student']->name}}</h3>
                     <p class="italic">Fecha entrega <span>{{$alumno['delivery'][0]->created_at->format('d-m-Y')}}</span> </p>
                 </div>
                 <div>
-                    {{-- <button class="bg-red-600 rounded-full text-white py-1 px-5">{{$job->state($alumno['delivery'][0]->state)}}</button> --}}
-                    <span class="inline-block rounded-full text-green-700 bg-green-200 px-2 py-1 text-xs font-bold mr-3">{{$job->state($job->state)}}</span>
+                    <button class="bg-red-600 rounded-full text-white py-1 px-5">{{$job->state($alumno['delivery'][0]->state)}}</button>
                 </div>
             </div>
 
@@ -57,7 +56,6 @@
             {{-- <h1>No deliveries</h1> --}}
         @endif
         @endforeach
-
 
 
     </div>
