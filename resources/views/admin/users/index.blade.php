@@ -24,14 +24,14 @@
                 </thead>
                 <tbody class="bg-white ">
                     @foreach ($users as $user)
-                <pre>{{$user->rol}}</pre>
+
                     <tr class="text-xs md:text-lg flex justify-between text-center items-center border-t border-gray-600 mx-2" id="row">
                         <td class="w-1/12 hidden md:block" >
                         <img src="{{asset('img/avatar/person_2.jpg')}}" class="rounded-full h-12 w-12" alt="">
                         </td>
                         <td class="w-1/12 text-xs hidden md:block " > {{$user->name}}</td>
                         <td class="w-1/12 text-xs hidden md:block" > {{$user->email}}</td>
-                        <td class="w-2/12 text-xs hidden md:block" > {{$user->id}}</td>
+                        <td class="w-2/12 text-xs hidden md:block" > {{ $user->roles->first()}}</td>
                         <td class="w-3/12 text-xs md:w-3/12 " >
                             <div class="flex justify-center px-2">
                                 <a href="" class="mx-1 text-teal-400">

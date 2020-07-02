@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Course;
 use App\Student;
 use App\Teacher;
 use Illuminate\Http\Request;
 
 use App\Imports\StudentsImport;
+use App\Observers\StudentObserver;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -20,9 +22,10 @@ class UserController extends Controller
      */
     public function index()
     {
-
+        //  $users = User::with('roles')->get();
+        //  $users = User::all()->first();
+        // return $users->roles[0]->name;
         $users = User::all();
-
         return view('admin.users.index',compact('users'));
     }
 
@@ -136,12 +139,16 @@ class UserController extends Controller
     }
 
     public function import(){
-
-        return view('admin.users.import');
+        $courses = Course::all();
+        return view('admin.users.import',compact('courses'));
     }
     public function importUsers(Request $request){
-
+        StudentObserver::$course = $request->course_id;
         Excel::import(new StudentsImport, request()->file('file'));
+
+
+
+
         // Excel::import(new StudentsImport, asset('files/students.xlsx'));
     }
 }

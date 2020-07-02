@@ -51,5 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Nuevas Rutas
     Route::get('import','UserController@import')->name('import');
     Route::post('import/users','UserController@importUsers')->name('import.users');
+
+    // Users
+    Route::resource('user', 'UserController');
 });
 

@@ -3,7 +3,9 @@
 @section('content')
 <script src='https://meet.jit.si/external_api.js'></script>
 <div class="grid grid-cols-1 lg:grid-cols-2">
-    @foreach ($subjects as $subject)
+
+    @if(count($subjects)>0)
+    @foreach ($subjects ??[] as $subject)
     <div
         class="mx-2 text-white card bg-gradient-green rounded-sm font-montserrat w-auto flex p-5 justify-between mt-5 items-center">
         <div>
@@ -21,10 +23,15 @@
         </div>
     </div>
     @endforeach
+    @else
+        <div>
+            <h1>No posee materias asignadas</h1>
+        </div>
+    @endif
 </div>
 
 {{-- Jitsi --}}
-
+{{--
 <div hidden>
     <div class="w-auto rounded overflow-hidden shadow-lg m-2">
         <div class="font-bold text-xl m-2">
@@ -38,7 +45,7 @@
         </div>
     </div>
 
-</div>
+</div> --}}
 
 @endsection
 

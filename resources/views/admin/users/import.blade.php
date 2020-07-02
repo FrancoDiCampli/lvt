@@ -10,6 +10,12 @@
                 <form method="POST" action="{{route('import.users')}}" class="mx-auto" id="delivery"
                 enctype="multipart/form-data">
                 @csrf
+                <select id="course" name="course_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                    <option disabled selected value> -- select a course -- </option>
+                    @foreach ($courses as $course)
+                        <option value="{{$course->id}}">{{$course->name}}</option>
+                    @endforeach
+                </select>
                 <div class="relative">
                     <div class="overflow-hidden relative w-64 mt-4 mb-4">
                         <div class="flex items-center justify-center bg-grey-lighter">

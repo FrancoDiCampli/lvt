@@ -23,6 +23,7 @@ class CourseController extends Controller
         ]);
 
        Course::create($course);
-       return redirect()->route('courses.index');
+
+       return redirect()->route('courses.index')->with('messages', 'Entrega creada');
     }
 }
