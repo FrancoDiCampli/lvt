@@ -24,7 +24,7 @@ class CourseController extends Controller
         ]);
 
        Course::create($course);
-       return redirect()->route('courses.index');
+       return redirect()->route('courses.index')->with('messages', 'Course creado correctamente.');;
     }
 
     public function edit($id){
@@ -41,6 +41,6 @@ class CourseController extends Controller
 
         $course->update($courseValidate);
 
-        return redirect()->route('courses.index')->withStatus(__('Course actualizado correctamente.'));
+        return redirect()->route('courses.index')->with('messages', 'Course actualizado correctamente.');
     }
 }

@@ -2,6 +2,39 @@
 
 @tailwind components;
 
+/* Our classes */
+
+/* Button primary */
+.btn{
+    @apply text-center justify-center px-6 py-2;
+}
+
+.btn-primary{
+    @apply bg-primary-400 text-white shadow-lg;
+}
+
+.btn-primary:hover{
+    @apply bg-primary-500;
+}
+
+.btn-primary:focus{
+    @apply bg-primary-100 outline-none;
+}
+
+/* Button secondary */
+.btn-secondary{
+    @apply bg-secondary-400 text-white shadow-lg;
+}
+
+.btn-secondary:hover{
+    @apply bg-secondary-200;
+}
+
+.btn-secondary:focus{
+    @apply bg-secondary-100 outline-none;
+}
+
+
 
 @tailwind utilities;
 
@@ -61,10 +94,57 @@
     right: 1rem;
 }
 
-.btn-teal{
-    @apply mb-5 font-semibold w-8/12 flex mx-auto text-center justify-center bg-teal-600 text-gray-200 px-5 py-2
+
+/* Toast style */
+/*Toast open/load animation*/
+.alert-toast {
+    -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
-.card{
-
+/*Toast close animation*/
+.alert-toast input:checked ~ * {
+    -webkit-animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
+
+@-webkit-keyframes slide-in-top{0%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-top{0%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@-webkit-keyframes slide-out-top{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}}@keyframes slide-out-top{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}}@-webkit-keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@-webkit-keyframes slide-out-bottom{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}}@keyframes slide-out-bottom{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}}@-webkit-keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}@keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}@-webkit-keyframes fade-out-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(50px);transform:translateX(50px);opacity:0}}@keyframes fade-out-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(50px);transform:translateX(50px);opacity:0}}
+
+
+
+/* Input - label style */
+.input {
+    transition: border 0.2s ease-in-out;
+    min-width: auto
+}
+
+.input:focus+.label,
+.input:active+.label,
+.input.filled+.label {
+    font-size: .75rem;
+    transition: all 0.2s ease-out;
+    top: -0.2rem;
+    color: #028C84;
+}
+
+.label {
+    transition: all 0.2s ease-out;
+    top: 0.4rem;
+      left: 0;
+}
+
+.input-control{
+    @apply bg-gray-200 appearance-none border-b-2 border-gray-400 leading-tight w-full px-3 py-3 pt-5 pb-2;
+}
+
+.input-control:focus{
+    @apply bg-white border-primary-200 outline-none;
+}
+
+.input-control:active{
+    @apply outline-none border-indigo-600;
+}
+
+
+
+

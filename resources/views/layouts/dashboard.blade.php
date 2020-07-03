@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 <link rel="stylesheet" href="{{asset('css/main.css')}}">
+
+
+
 </head>
 <body class="bg-gray-200 font-montserrat" id="all">
 
@@ -47,7 +50,7 @@
                 </div>
         </div>
 
-        <div class="container mx-auto flex md:p-5 relative px-6 ">
+        <div class="container mx-auto flex md:p-5 relative px-6">
 
             <div id="sidebar" class="md:block w-0 md:w-3/12 transition-all delay-75  m-0 p-0 mx-auto text-left" >
                 <button onclick="setRes()" class="md:hidden text-gray-700 mt-5 ml-5">
@@ -104,7 +107,28 @@
                     <span  class="text-gray-700">Enrollments>Course>Subject</span>
                 </div>
 
+
+
                 @yield('content')
+
+                {{-- Mensaje de sesion --}}
+                <div class="container">
+                    @if (session('messages'))
+                        <!--Toast-->
+                        <div class="alert-toast fixed top-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+                            <input type="checkbox" class="hidden" id="footertoast">
+
+                            <label class="close cursor-pointer flex items-start justify-between w-full p-2 bg-green-200 h-12 rounded shadow-lg text-white" title="close" for="footertoast">
+                                {{ session('messages') }}
+
+                                <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                    <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                                </svg>
+                            </label>
+                        </div>
+
+                    @endif
+                </div>
 
 
             </div>
@@ -135,6 +159,33 @@
     // main.addEventListener('click',function(e){
     //     dd.classList.toggle("shown");
     // })
+
+    // script input
+    var toggleInputContainer = function (input) {
+        if (input.value != "") {
+            input.classList.add('filled');
+        } else {
+            input.classList.remove('filled');
+        }
+    }
+
+    var labels = document.querySelectorAll('.label');
+    for (var i = 0; i < labels.length; i++) {
+        labels[i].addEventListener('click', function () {
+            this.previousElementSibling.focus();
+        });
+    }
+
+    window.addEventListener("load", function () {
+        var inputs = document.getElementsByClassName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            console.log('looped');
+            inputs[i].addEventListener('keyup', function () {
+                toggleInputContainer(this);
+            });
+            toggleInputContainer(inputs[i]);
+        }
+    });
 
 </script>
 </body>
