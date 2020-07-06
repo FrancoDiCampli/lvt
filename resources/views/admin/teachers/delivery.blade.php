@@ -49,6 +49,42 @@
                 class="bg-teal-600 text-white text-sm p-2 mt-4 shadow-lg hover:text-white w-full hover:bg-teal-900 rounded">Update</button>
         </form>
 
+        <div class="w-6/12 ">
+            <h1 class="font-semibold px-5">Comments</h1>
+            <div class="relative w-1/2 m-8">
+                <div class="border-r-2 border-gray-500 absolute h-full top-0" style="left: 15px">
+                </div>
+                <ul class="list-none m-0 p-0">
+
+                    @foreach ($delivery->comments as $item)
+                    <li class="mb-2">
+                        <div class="flex items-center mb-1">
+                            <div class="bg-gray-500 rounded-full h-8 w-8"></div>
+                            <div class="flex-1 ml-4  font-semibold">{{$item->user->name}}: </div>
+                        </div>
+                        <div class="ml-12">
+                            {{$item->comment}}
+                        </div>
+                    </li>
+                    @endforeach
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div>
+            <form action="{{route('comment.store')}}" method="POST">
+                @csrf
+                <input type="text" name="delivery" value="{{$delivery->id}}" hidden>
+                <div
+                    class="w-8/12 mx-5 border border-gray-600 bg-white h-8 rounded-full px-5 py-1 content-center flex items-center">
+                    <input name="comment" type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
+                    <button type="submit" class="text-teal-600 font-semibold">Comment</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 

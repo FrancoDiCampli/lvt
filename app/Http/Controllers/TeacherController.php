@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Job;
 use App\Subject;
 use App\Delivery;
+use App\Traits\FilesTrait;
+use App\User;
 use Illuminate\Http\Request;
-use App\Traits\TeachersTrait;
-use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -15,25 +15,11 @@ class TeacherController extends Controller
     {
         $subject = Subject::find($id);
         $subject->jobs;
-        // $states = ['Activas', 'Terminadas', 'Rechazadas'];
-        // $year = now()->format('Y');
-        // $subjects = TeachersTrait::subjects($year);
-        // $jobs = collect();
-        // $subjects->each(function ($subject) use ($jobs) {
-        //     $subject->jobs->each(function ($job) use ($jobs) {
-        //         $jobs->push($job);
-        //     });
-        // });
 
         return view('admin.teachers.subject', compact('subject'));
     }
 
     public function create($subject)
-    {
-        // return view('jobs.create', compact('subject'));
-    }
-
-    public function nuevaTarea($subject)
     {
         $subject = Subject::find($subject);
         return view('admin.teachers.create', compact('subject'));
@@ -50,12 +36,9 @@ class TeacherController extends Controller
             'end' => 'required'
         ]);
 
-        if ($request->file->getClientOriginalExtension() == 'pdf' || $request->file->getClientOriginalExtension() == 'docx') {
-            $nameFile = time() . '_' . $subject->name . '.' . $request->file->getClientOriginalExtension();
-            $path = public_path('tareas/');
-            $request->file->move($path, $nameFile);
+        $nameFile = FilesTrait::store($request, $ubicacion = 'tareas', $nombre = $subject->name);
 
-            $data['file_path'] = $nameFile;
+        if ($nameFile) {
             $data['subject_id'] = $data['subject'];
             $data['state'] = 1;
 
@@ -76,19 +59,20 @@ class TeacherController extends Controller
     public function show($id)
     {
         $job = Job::find($id);
-        $matriculas = $job->subject->course()->get()[0]->enrollments;
-        $alumnos = collect();
-        foreach ($matriculas as $mat) {
-            $alumno = collect();
-            $alumno->put('student', $mat->student);
-            $aux = $mat->student->deliveries()->get()->where('job_id', $job->id);
-            $alumno->put('delivery', $aux->flatten());
-            $alumnos->push($alumno);
-        }
 
-        // return $alumnos;
+        $matriculas = $job->subject->course->enrollments;
 
-        return view('admin.teachers.show', compact('job', 'alumnos'));
+        $aux = $job->deliveries->keyBy('user_id');
+
+        $faltan = $matriculas->whereNotIn('user_id', $aux->keys());
+
+        $entregas = $job->deliveries()->get();
+
+        $alumnos = $faltan->map(function ($item) {
+            return $item->student;
+        });
+
+        return view('admin.teachers.show', compact('job', 'entregas', 'alumnos'));
     }
 
     public function edit($id)
@@ -127,8 +111,8 @@ class TeacherController extends Controller
 
     public function delivery($delivery)
     {
-
         $delivery =  Delivery::find($delivery);
+        $delivery->comments;
         return view('admin.teachers.delivery', compact('delivery'));
     }
 }
