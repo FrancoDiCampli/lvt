@@ -30,7 +30,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Teachers
     Route::resource('teachers', 'TeacherController')->except(['create', 'index']);
-    Route::get('nuevaTarea/{subject}', 'TeacherController@nuevaTarea')->name('nuevaTarea');
     Route::get('teacher/create/{subject}', 'TeacherController@create')->name('teacher.create');
     Route::get('teacher/index/{subject}', 'TeacherController@index')->name('teacher.index');
     Route::get('teacher/descargar/{job}', 'TeacherController@descargar')->name('teacher.descargar');
