@@ -27,11 +27,13 @@ class AdminController extends Controller
         $user = Auth::user();
         $enrol = StudentsTrait::enrollment(2020);
         $subjects =  $enrol->subjects;
+        $ids = $subjects->modelkeys();
+        $subjects = Subject::whereIn('id',$ids)->with('posts')->get();
 
         $deliveries = Delivery::where('user_id', $user->id)->get();
         $jobs = StudentsTrait::pendding();
 
-        dd($subjects);
+
         return view('admin.students.index', compact('user', 'jobs', 'deliveries','subjects'));
     }
 }

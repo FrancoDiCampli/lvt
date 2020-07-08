@@ -8,9 +8,10 @@
            <h1 class="text-teal-600 font-semibold">Post</h1>
         </div>
         <div class="card-body py-5">
+
             <form method="POST" action="{{ route('posts.store') }}" class="mx-auto" >
                 @csrf
-                <input type="text" value="{{$subject->id}}" name="subject" >
+                <input type="text" value="{{$subject->id}}" name="subject_id" >
                 <div class="mb-2">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-last-name">

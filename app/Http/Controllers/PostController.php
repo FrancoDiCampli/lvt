@@ -23,17 +23,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $sub = Subject::where('id',$request->subject)->get();
+        $sub = Subject::where('id',$request->subject_id)->get();
 
         Post::create([
             'title'=>$request->title,
             'description'=>$request->description,
             'content'=>$request->content,
-            'course_id'=>$sub[0]->course_id,
+            'subject_id'=>$request->subject_id,
             'user_id'=>auth()->user()->id
         ]);
 
-        return redirect()->route('teacher.index',$request->subject);
+        return redirect()->route('teacher.index',$request->subject_id);
     }
 
     /**

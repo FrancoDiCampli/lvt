@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->mediumText('content');
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });

@@ -15,8 +15,8 @@ class AnnotationController extends Controller
             'user_id'=>auth()->user()->id
         ]);
 
+            return redirect()->back();
 
-
-        return redirect()->route('teacher.index',$request->subject_id);
+        // return redirect()->route('teacher.index',$request->subject_id);
     }
 }

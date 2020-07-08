@@ -57,6 +57,42 @@
                             </svg>
                         </div>
                     </header>
+                    <div>
+                        <div class="pl-8 pr-8 pb-5 text-grey-darkest">
+                            <ul class="pl-4">
+                                @foreach ($subject->posts as $post)
+                                    <li class="pb-2">
+                                    <span>Autor {{$post->user->name}}</span>
+                                    {{$post->title}}
+                                    @foreach ($post->annotations as $annotation)
+                                       <div>
+                                        <div class="pl-8 pr-8 pb-5 text-grey-darkest">
+                                            <ul class="pl-4">
+                                                <li class="pb-2">
+                                                <h2>Comment: {{$annotation->annotation}} </h2>
+                                                    <span>by{{$annotation->user->name}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    <form action="{{route('annotations.store')}}" method="POST">
+                                        @csrf
+                                        <input type="text" name="post_id" value="{{$post->id}}" hidden>
+                                        <input type="text" name="subject_id" value="{{$subject->id}}" hidden>
+                                        <div
+                                            class="w-8/12 mx-5 border border-gray-600 bg-white h-8 rounded-full px-5 py-1 content-center flex items-center">
+                                            <input name="annotation" type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
+                                            <button type="submit" class="text-teal-600 font-semibold">Comment</button>
+                                        </div>
+                                    </form>
+                                    </li>
+                                @endforeach
+
+
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </article>
             @endforeach
