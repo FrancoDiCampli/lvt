@@ -5,7 +5,7 @@
     <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
         <div class="card-title bg-white w-full p-1 md:p-5  border-b flex items-center justify-between md:justify-between ">
         <h1 class="text-teal-600 font-semibold">{{$subject->name}}</h1>
-            <a href="{{route('teacher.create', $subject)}}" class="bg-teal-600 text-white text-sm p-2 shadow-lg hover:text-gray-700">New Job</a>
+            <a href="{{route('nuevaTarea', $subject)}}" class="bg-teal-600 text-white text-sm p-2 shadow-lg hover:text-gray-700">New Job</a>
 
         </div>
         <div class="card-body py-2">
@@ -49,5 +49,54 @@
             </table>
         </div>
     </div>
+
+    <div class="comments mt-10">
+        <h1 class="text-2xl font-rubik">Posts</h1>
+    <a href="{{route('new.post',$subject->id)}}">New Post</a>
+    @if(count($posts)>0)
+        @foreach ($posts as $post)
+        <div class="card bg-white w-10/12 p-5 my-3">
+            <div class="card-title">
+                <h1>{{$post->title}}</h1>
+            <h4>Author: {{auth()->user()->name}}</h4>
+                <span>Published: {{$post->created_at}}</span>
+                <span>{{$post->description}}</span>
+                <p>{{$post->content}}</p>
+            </div>
+
+        </div>
+            @foreach ($post->annotations as $annotation)
+            <div class="card bg-white w-8/12 p-5">
+                <div class="card-title">
+                    <h4>Author: {{$annotation->user->name}}</h4>
+                    <h1>{{$annotation->annotation}}</h1>
+
+                    <span>Published: {{$annotation->created_at}}</span>
+                </div>
+
+            </div>
+            @endforeach
+
+            <div>
+            <form action="{{route('annotations.store')}}" method="POST">
+                    @csrf
+                    <input type="text" name="post_id" value="{{$post->id}}" hidden>
+                    <input type="text" name="subject_id" value="{{$subject->id}}" hidden>
+                    <div
+                        class="w-8/12 mx-5 border border-gray-600 bg-white h-8 rounded-full px-5 py-1 content-center flex items-center">
+                        <input name="annotation" type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
+                        <button type="submit" class="text-teal-600 font-semibold">Comment</button>
+                    </div>
+                </form>
+            </div>
+        @endforeach
+
+    @else
+            <h1>No posee posts</h1>
+    @endif
+
+
+    </div>
+
 </div>
 @endsection

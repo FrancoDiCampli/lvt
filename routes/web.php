@@ -1,5 +1,8 @@
 <?php
 
+use App\Course;
+use App\Enrollment;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,6 +15,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('allCourses',function(){
+    return Course::all();
+});
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -30,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Teachers
     Route::resource('teachers', 'TeacherController')->except(['create', 'index']);
+    Route::get('nuevaTarea/{subject}', 'TeacherController@nuevaTarea')->name('nuevaTarea');
     Route::get('teacher/create/{subject}', 'TeacherController@create')->name('teacher.create');
     Route::get('teacher/index/{subject}', 'TeacherController@index')->name('teacher.index');
     Route::get('teacher/descargar/{job}', 'TeacherController@descargar')->name('teacher.descargar');
@@ -41,6 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('subjects', 'SubjectController');
 
+    // Enrollment
     Route::resource('enrollments', 'EnrollmentController');
 
     // Jobs
@@ -53,5 +62,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Users
     Route::resource('user', 'UserController');
+
+    Route::post('test',function(Request $request){
+        return $request;
+    });
+
+    Route::resource('posts', 'PostController')->except('create');
+    Route::resource('annotations', 'AnnotationController');
+
+    Route::get('newpost/{subject}','PostController@create')->name('new.post');
 });
 

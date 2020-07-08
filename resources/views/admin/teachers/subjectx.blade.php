@@ -5,7 +5,7 @@
     <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
         <div class="card-title bg-white w-full p-1 md:p-5  border-b flex items-center justify-between md:justify-between ">
         <h1 class="text-teal-600 font-semibold">{{$subject->name}}</h1>
-            <a href="{{route('teacher.create', $subject)}}" class="bg-teal-600 text-white text-sm p-2 shadow-lg hover:text-gray-700">New Job</a>
+            <a href="{{route('nuevaTarea', $subject)}}" class="bg-teal-600 text-white text-sm p-2 shadow-lg hover:text-gray-700">New Job</a>
 
         </div>
         <div class="card-body py-2">
