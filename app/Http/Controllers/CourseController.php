@@ -43,4 +43,23 @@ class CourseController extends Controller
 
         return redirect()->route('courses.index')->with('messages', 'Course actualizado correctamente.');
     }
+
+    public function destroy($id)
+    {
+        $course = Course::find($id);
+
+        $count = count($course->subjects);
+
+        if ($count > 0) {
+            return back()->with('errores', 'No se puede elimianar. Posees materias asignadas');
+        }
+
+        else {
+            $course->delete();
+
+            return redirect()->back()->with('messages', 'Course eliminado correctamente.');
+        }
+
+
+    }
 }

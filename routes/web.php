@@ -48,5 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
+
+    //ruta eliminar curso por metodo get
+    Route::get('courseDelete/{id}', 'CourseController@destroy')->name('courses.destroy');
 });
 

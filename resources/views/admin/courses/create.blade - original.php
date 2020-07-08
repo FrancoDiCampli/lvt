@@ -3,25 +3,20 @@
 @section('content')
 
 <div class="container font-montserrat text-sm ">
-
-    <div class="card  rounded-sm bg-gray-100 mx-auto mt-10 shadow-lg">
+    <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
         <div class="card-title bg-white w-full p-1 md:p-5  border-b flex items-center justify-between md:justify-between ">
-            <h1 class="text-teal-600 font-semibold text-lg md:m-0 m-2">Edit Course: {{$course->name}}</h1>
-            <a href="{{route('courses.index')}}" class="flex hover:shadow-lg md:m-0 m-2 px-4 py-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" viewBox="0 0 306 306"><path data-original="#000000" class="active-path" data-old_color="#000000" fill="#A0AEC0" d="M247.35 35.7L211.65 0l-153 153 153 153 35.7-35.7L130.05 153z"/></svg>
-              </a>
+           <h1 class="text-teal-600 font-semibold">Courses</h1>
         </div>
         <div class="card-body py-5">
-            <form method="POST" action="{{ route('courses.update', $course->id) }}" class="mx-auto" >
+            <form method="POST" action="{{ route('courses.store') }}" class="mx-auto" >
                 @csrf
-                @method('PUT')
                 <div class="md:flex">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                         Year
                         </label>
                         <div class="relative">
-                        <select id="anio"  onchange="setCode()" name="year" class="form-input w-full block" id="grid-state">
+                        <select id="anio"  onchange="setCode()" name="year" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                             <option disabled selected value> -- select a year -- </option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -34,12 +29,12 @@
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                       Division
                     </label>
                     <div class="relative">
-                      <select id="division" onchange="setCode()"  id="" name="division"  class="form-input w-full block" id="grid-state">
+                      <select id="division" onchange="setCode()"  id="" name="division"  class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                         <option disabled selected value> -- select an option -- </option>
                         <option value="A">A</option>
                         <option value="B">B</option>
@@ -54,29 +49,31 @@
                 </div>
 
                 <div class="flex flex-wrap my-5">
-                    <div class="w-full md:w-1/2 px-3 md:mb-0 mb-6">
+                    <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                           Course
                         </label>
-                        <input type="text" id="name" name="name" value="{{ old('name', $course->name) }}" class="form-input w-full block" id="grid-last-name" type="text" placeholder="Doe">
-                        <span class="flex italic text-red-600  text-sm" role="alert">
-                            {{$errors->first('name')}}
-                        </span>
+                        <input type="text" id="name" name="name" value="" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
                     </div>
 
                     <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                           Code
                         </label>
-                        <input id="code" type="text"  name="code" value="{{ old('code', $course->code) }}" class="form-input w-full block" id="grid-last-name" type="text" placeholder="Doe">
-                        <span class="flex italic text-red-600  text-sm" role="alert">
-                            {{$errors->first('code')}}
-                        </span>
+                        <input id="code" type="text"  name="code" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
                     </div>
+
+
                 </div>
 
 
-                <button type="submit" class="flex mx-auto btn btn-primary">Save</button>
+                @error('name')
+                    <span class="flex my-5 justify-center italic text-red-600  text-sm" role="alert">
+                            {{$message}}
+                    </span>
+                @enderror
+
+                <button type="submit" class="w-8/12 mb-5 font-semibold md:w-5/12 py-2 flex mx-auto  justify-center bg-teal-600 text-gray-200 ">Save</button>
 
             </form>
         </div>
@@ -103,4 +100,3 @@
 </script>
 @endpush
 @endsection
-
