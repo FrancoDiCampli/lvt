@@ -3,8 +3,7 @@
 @section('content')
 <div class="container font-montserrat text-sm ">
     <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
-        <div
-            class="card-title bg-white w-full p-1 md:p-5  border-b flex items-center justify-between md:justify-between ">
+        <div class="card-title bg-white w-full p-1 md:p-5  border-b flex items-center justify-between md:justify-between ">
             <h1 class="text-teal-600 font-semibold">{{$job->subject->name}} -> {{$job->title}}</h1>
         </div>
         <div class="card-body py-2">

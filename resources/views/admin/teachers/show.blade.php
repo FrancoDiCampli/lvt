@@ -101,6 +101,36 @@
     </div>
     @endforeach
 
+</div>
+
+<div class="comments">
+    <h1 class="text-2xl font-rubik">Comments</h1>
+    <div class="card bg-white w-10/12 p-5 my-3">
+        <div class="card-title">
+            <h1>First Comment</h1>
+            <h4>Author: Yo mismo</h4>
+            <span>Published: 12/12/12</span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nam placeat ab ea, odit earum
+                consectetur! Atque repellat quis dolores temporibus dolorum sapiente facere molestias numquam! Explicabo
+                repudiandae sed facere!</p>
+        </div>
+
+    </div>
+
+    <div class="card bg-white w-8/12 p-5">
+        <div class="card-title">
+            <h1>First Comment</h1>
+            <h4>Author: Yo mismo</h4>
+            <span>Published: 12/12/12</span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nam placeat ab ea, odit earum
+                consectetur! Atque repellat quis dolores temporibus dolorum sapiente facere molestias numquam! Explicabo
+                repudiandae sed facere!</p>
+        </div>
+
+    </div>
+
+</div>
+
 
 </div>
 

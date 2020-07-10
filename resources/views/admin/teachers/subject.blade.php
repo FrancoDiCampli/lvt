@@ -32,7 +32,7 @@
                                 <a href="{{route('teachers.show', $job->id)}}" class="mx-1 text-teal-400">
                                 <svg aria-hidden="true" data-prefix="fas" data-icon="pencil-alt" class="h-4 w-4 svg-inline--fa fa-pencil-alt fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
                                 </a>
-                                <a href="" class="mx-1 text-teal-600">
+                                <a href="{{route('teacher.showJob', $job->id)}}" class="mx-1 text-teal-600">
                                 <svg aria-hidden="true" data-prefix="fas" data-icon="trash-alt" class="h-4 w-4 svg-inline--fa fa-trash-alt fa-w-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M32 464a48 48 0 0048 48h288a48 48 0 0048-48V128H32zm272-256a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zM432 32H312l-9.4-18.7A24 24 0 00281.1 0H166.8a23.72 23.72 0 00-21.4 13.3L136 32H16A16 16 0 000 48v32a16 16 0 0016 16h416a16 16 0 0016-16V48a16 16 0 00-16-16z"/></svg>
                                 </a>
                                 <a href="{{route('teacher.descargar', $job->file_path)}}" class="mx-1 text-teal-800">
@@ -49,5 +49,54 @@
             </table>
         </div>
     </div>
+
+    <div class="comments mt-10">
+        <h1 class="text-2xl font-rubik">Posts</h1>
+    <a href="{{route('new.post',$subject->id)}}">New Post</a>
+    @if(count($posts)>0)
+        @foreach ($posts as $post)
+        <div class="card bg-white w-10/12 p-5 my-3">
+            <div class="card-title">
+                <h1>{{$post->title}}</h1>
+            <h4>Author: {{auth()->user()->name}}</h4>
+                <span>Published: {{$post->created_at}}</span>
+                <span>{{$post->description}}</span>
+                <p>{{$post->content}}</p>
+            </div>
+
+        </div>
+            @foreach ($post->annotations as $annotation)
+            <div class="card bg-white w-8/12 p-5">
+                <div class="card-title">
+                    <h4>Author: {{$annotation->user->name}}</h4>
+                    <h1>{{$annotation->annotation}}</h1>
+
+                    <span>Published: {{$annotation->created_at}}</span>
+                </div>
+
+            </div>
+            @endforeach
+
+            <div>
+            <form action="{{route('annotations.store')}}" method="POST">
+                    @csrf
+                    <input type="text" name="post_id" value="{{$post->id}}" hidden>
+                    <input type="text" name="subject_id" value="{{$subject->id}}" hidden>
+                    <div
+                        class="w-8/12 mx-5 border border-gray-600 bg-white h-8 rounded-full px-5 py-1 content-center flex items-center">
+                        <input name="annotation" type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
+                        <button type="submit" class="text-teal-600 font-semibold">Comment</button>
+                    </div>
+                </form>
+            </div>
+        @endforeach
+
+    @else
+            <h1>No posee posts</h1>
+    @endif
+
+
+    </div>
+
 </div>
 @endsection

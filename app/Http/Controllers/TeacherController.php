@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Job;
+use App\Post;
 use App\Subject;
 use App\Delivery;
 use App\Traits\FilesTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -15,7 +17,9 @@ class TeacherController extends Controller
         $subject = Subject::find($id);
         $subject->jobs;
 
-        return view('admin.teachers.subjectx', compact('subject'));
+        $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->get();
+
+        return view('admin.teachers.subject', compact('subject','posts'));
     }
 
     public function create($subject)
