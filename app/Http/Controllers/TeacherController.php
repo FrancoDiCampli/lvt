@@ -6,7 +6,6 @@ use App\Job;
 use App\Subject;
 use App\Delivery;
 use App\Traits\FilesTrait;
-use App\User;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -16,7 +15,7 @@ class TeacherController extends Controller
         $subject = Subject::find($id);
         $subject->jobs;
 
-        return view('admin.teachers.subject', compact('subject'));
+        return view('admin.teachers.subjectx', compact('subject'));
     }
 
     public function create($subject)
@@ -32,8 +31,10 @@ class TeacherController extends Controller
             'title' => 'required',
             'description' => 'required',
             'subject' => 'required',
-            'start' => 'required',
-            'end' => 'required'
+            'link' => 'nullable|url',
+            'file' => 'required|file',
+            'start' => 'date',
+            'end' => 'date'
         ]);
 
         $nameFile = FilesTrait::store($request, $ubicacion = 'tareas', $nombre = $subject->name);
@@ -47,12 +48,13 @@ class TeacherController extends Controller
                 'description' => $data['description'],
                 'subject_id' => $data['subject'],
                 'file_path' => $nameFile,
+                'link' => $data['link'],
                 'start' => $data['start'],
                 'end' => $data['end'],
                 'state' => 1,
             ]);
         }
-
+        session()->flash('messages', 'Tarea creada');
         return redirect()->action('TeacherController@index', $subject->id);
     }
 
@@ -72,15 +74,43 @@ class TeacherController extends Controller
             return $item->student;
         });
 
-        return view('admin.teachers.show', compact('job', 'entregas', 'alumnos'));
+        return view('admin.teachers.showx', compact('job', 'entregas', 'alumnos'));
+    }
+
+    public function showJob($id)
+    {
+        $job = Job::find($id);
+        return view('admin.teachers.showJob', compact('job'));
     }
 
     public function edit($id)
     {
-        //
+        $job = Job::find($id);
+        return view('admin.teachers.edit', compact('job'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $job = Job::find($id);
+        $subject = Subject::find($request->subject);
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'link' => 'nullable|url',
+            'start' => 'date',
+            'end' => 'date'
+        ]);
+        $data['subject_id'] = $subject->id;
 
+        if ($request->file) {
+            $nameFile = FilesTrait::update($request, 'tareas', $subject->name, $job);
+            $data['file_path'] = $nameFile;
+        }
+
+        $job->update($data);
+        session()->flash('messages', 'Tarea actualizada');
+        return redirect()->action('TeacherController@index', $subject->id);
+    }
 
     public function destroy($id)
     {
