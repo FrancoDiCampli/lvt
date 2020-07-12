@@ -6,30 +6,28 @@ use App\Job;
 use App\Post;
 use App\Subject;
 use App\Delivery;
+use App\Traits\FilesTrait;
 use Illuminate\Http\Request;
-use App\Traits\TeachersTrait;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:teacher');
+    }
+    
     public function index($id)
     {
         $subject = Subject::find($id);
         $subject->jobs;
 
-        // $posts = Post::where('user_id',Auth::user()->id)->where('course_id',$subject->course_id)->with('annotations')->get();
         $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->get();
 
         return view('admin.teachers.subject', compact('subject','posts'));
     }
 
     public function create($subject)
-    {
-        // return view('jobs.create', compact('subject'));
-    }
-
-    public function nuevaTarea($subject)
     {
         $subject = Subject::find($subject);
         return view('admin.teachers.create', compact('subject'));
@@ -42,59 +40,86 @@ class TeacherController extends Controller
             'title' => 'required',
             'description' => 'required',
             'subject' => 'required',
-            'start' => 'required',
-            'end' => 'required'
+            'link' => 'nullable|url',
+            'file' => 'required|file',
+            'start' => 'date',
+            'end' => 'date|after_or_equal:'.$request->start
         ]);
 
-        if ($request->file->getClientOriginalExtension() == 'pdf' || $request->file->getClientOriginalExtension() == 'docx') {
-            $nameFile = time() . '_' . $subject->name . '.' . $request->file->getClientOriginalExtension();
-            $path = public_path('tareas/');
-            $request->file->move($path, $nameFile);
+        $nameFile = FilesTrait::store($request, $ubicacion = 'tareas', $nombre = $subject->name);
 
-            $data['file_path'] = $nameFile;
+        if ($nameFile) {
             $data['subject_id'] = $data['subject'];
-            $data['state'] = 1;
+            $data['state'] = 0;
 
             Job::create([
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'subject_id' => $data['subject'],
                 'file_path' => $nameFile,
+                'link' => $data['link'],
                 'start' => $data['start'],
                 'end' => $data['end'],
-                'state' => 1,
+                'state' => 0,
             ]);
         }
-
+        session()->flash('messages', 'Tarea creada');
         return redirect()->action('TeacherController@index', $subject->id);
     }
 
     public function show($id)
     {
         $job = Job::find($id);
-        $matriculas = $job->subject->course()->get()[0]->enrollments;
-        $alumnos = collect();
 
+        $matriculas = $job->subject->course->enrollments;
 
-        foreach ($matriculas as $mat) {
-            $alumno = collect();
-            $alumno->put('student', $mat->student);
-            $aux = $mat->student->deliveries()->get()->where('job_id', $job->id);
-            $alumno->put('delivery', $aux->flatten());
-            $alumnos->push($alumno);
-        }
+        $aux = $job->deliveries->keyBy('user_id');
 
-        // return $alumnos;
+        $faltan = $matriculas->whereNotIn('user_id', $aux->keys());
 
-        return view('admin.teachers.show', compact('job', 'alumnos'));
+        $entregas = $job->deliveries()->get();
+
+        $alumnos = $faltan->map(function ($item) {
+            return $item->student;
+        });
+
+        return view('admin.teachers.showx', compact('job', 'entregas', 'alumnos'));
+    }
+
+    public function showJob($id)
+    {
+        $job = Job::find($id);
+        return view('admin.teachers.showJob', compact('job'));
     }
 
     public function edit($id)
     {
-        //
+        $job = Job::find($id);
+        return view('admin.teachers.edit', compact('job'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $job = Job::find($id);
+        $subject = Subject::find($request->subject);
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'link' => 'nullable|url',
+            'start' => 'date',
+            'end' => 'date'
+        ]);
+        $data['subject_id'] = $subject->id;
 
+        if ($request->file) {
+            $nameFile = FilesTrait::update($request, 'tareas', $subject->name, $job);
+            $data['file_path'] = $nameFile;
+        }
+
+        $job->update($data);
+        session()->flash('messages', 'Tarea actualizada');
+        return redirect()->action('TeacherController@index', $subject->id);
+    }
 
     public function destroy($id)
     {
@@ -125,8 +150,8 @@ class TeacherController extends Controller
 
     public function delivery($delivery)
     {
-
         $delivery =  Delivery::find($delivery);
+        $delivery->comments;
         return view('admin.teachers.delivery', compact('delivery'));
     }
 }

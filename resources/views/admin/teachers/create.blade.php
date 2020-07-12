@@ -2,20 +2,6 @@
 
 @section('content')
 
-@if ($errors->any())
-@foreach ($errors->all() as $error)
-<div class="flex rounded-full items-center bg-red-500 text-white text-sm font-bold m-2 px-4 py-3" role="alert">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exclamation"
-        class="fill-current w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-        <path fill="currentColor"
-            d="M176 432c0 44.112-35.888 80-80 80s-80-35.888-80-80 35.888-80 80-80 80 35.888 80 80zM25.26 25.199l13.6 272C39.499 309.972 50.041 320 62.83 320h66.34c12.789 0 23.331-10.028 23.97-22.801l13.6-272C167.425 11.49 156.496 0 142.77 0H49.23C35.504 0 24.575 11.49 25.26 25.199z">
-        </path>
-    </svg>
-    <p>{{$error}}</p>
-</div>
-@endforeach
-@endif
-
 <div class="container font-montserrat text-sm ">
     <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
         <div
@@ -35,7 +21,7 @@
                                 for="grid-last-name">
                                 Title
                             </label>
-                            <input type="text" id="title" name="title" value=""
+                            <input type="text" id="title" name="title" value="{{ old('title') }}"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="grid-last-name" type="text" placeholder="Title">
                         </div>
@@ -49,7 +35,7 @@
                             <div class="flex items-center">
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:text-teal-500"
-                                    type="date" name="start">
+                                    type="date" name="start" value="{{ old('start') }}">
                                 <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -67,7 +53,7 @@
                             <div class="flex items-center">
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 hover:text-teal-500"
-                                    type="date" name="end">
+                                    type="date" name="end" value="{{ old('end') }}">
                                 <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -84,11 +70,11 @@
                         </label>
                         <textarea name="description" id="description" cols="30" rows="10"
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-last-name" placeholder="description"></textarea>
+                            id="grid-last-name" placeholder="description">{{ old('description') }}</textarea>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap my-5 items-center">
+                <div class="flex flex-wrap my-5">
                     <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-state">
@@ -109,18 +95,47 @@
                                             onchange="setName()" />
                                     </label>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    <div class="w-full md:w-1/2 px-3">
-                        <button type="submit"
-                            class="w-8/12 mb-5 font-semibold md:w-5/12 py-2 flex mx-auto  justify-center bg-teal-600 text-gray-200 hover:bg-teal-400">Save</button>
-                    </div>
 
-                    <iframe id="viewer" height="600" width="800" frameborder="0"></iframe>
+                    <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-last-name">
+                            Link Youtube
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mb-2"
+                            placeholder="link" type="text" name="link" id="link" value="{{ old('link') }}">
+                    </div>
+                </div>
+                <div class="flex justify-center px-3">
+                    <button type="submit"
+                        class="w-8/12 mb-5 font-semibold md:w-5/12 py-2 flex mx-auto  justify-center bg-teal-600 text-gray-200 hover:bg-teal-400">Save</button>
                 </div>
             </form>
+
+            <div
+                class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+                <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+                <div class="modal-container bg-white mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                    <div class="modal-content py-4 text-left px-6">
+                        <div class="flex justify-end items-center pb-3">
+                            <div class="modal-close cursor-pointer z-50">
+                                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 18 18">
+                                    <path
+                                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <iframe id="viewer" height="600" width="800" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -128,15 +143,59 @@
 
 @push('js')
 <script>
+    var openmodal = document.querySelectorAll('.modal-open')
+    for (var i = 0; i < openmodal.length; i++) {
+      openmodal[i].addEventListener('click', function(event){
+    	event.preventDefault()
+    	toggleModal()
+      })
+    }
+    
+    const overlay = document.querySelector('.modal-overlay')
+    overlay.addEventListener('click', toggleModal)
+    
+    var closemodal = document.querySelectorAll('.modal-close')
+    for (var i = 0; i < closemodal.length; i++) {
+      closemodal[i].addEventListener('click', toggleModal)
+    }
+    
+    document.onkeydown = function(evt) {
+      evt = evt || window.event
+      var isEscape = false
+      if ("key" in evt) {
+    	isEscape = (evt.key === "Escape" || evt.key === "Esc")
+      } else {
+    	isEscape = (evt.keyCode === 27)
+      }
+      if (isEscape && document.body.classList.contains('modal-active')) {
+    	toggleModal()
+      }
+    };
+    
+    function toggleModal () {
+      const body = document.querySelector('body')
+      const modal = document.querySelector('.modal')
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+      body.classList.toggle('modal-active')
+    }
+
     function setName(){
-            let fileName = document.getElementById('fileName');
-            var cad = fileName.value;
-            cad = cad.split('\\');
-            let selected = document.getElementById('selected');
-            selected.innerHTML = cad[2];
-            fileDocument = document.getElementById("fileName").files[0];
-            fileDocument_url = URL.createObjectURL(fileDocument);
-            document.getElementById('viewer').setAttribute('src', fileDocument_url);
+        let fileName = document.getElementById('fileName');
+        var cad = fileName.value;
+        cad = cad.split('\\');
+        let selected = document.getElementById('selected');
+        selected.innerHTML = cad[2];
+        fileDocument = document.getElementById("fileName").files[0];
+        fileDocument_url = URL.createObjectURL(fileDocument);
+        document.getElementById('viewer').setAttribute('src', fileDocument_url);
+        let ancho = screen.width;
+        if (ancho <= 640) {
+            let marco = document.getElementById('viewer');
+            marco.setAttribute('height',200);
+            marco.setAttribute('width',270);
         }
+        toggleModal();
+    }
 </script>
 @endpush

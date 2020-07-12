@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+    
     public function index(){
         $enrollments = Enrollment::all();
         return view('admin.enrollments.index',compact('enrollments'));
