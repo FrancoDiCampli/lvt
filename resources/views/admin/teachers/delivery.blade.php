@@ -26,7 +26,7 @@
             <iframe height="600" width="800" src="{{asset('entregas/'. $delivery->file_path)}}"
                 frameborder="0"></iframe>
         </div>
-        <form action="" method="POST">
+        <form action="/updateDelivery/{{$delivery->id}}" method="POST">
             @method('PUT')
             @csrf
             <input type="text" hidden name="id_job" value="{{$delivery->job->id}}">
@@ -35,18 +35,25 @@
                 {{-- <span class="text-xs font-semibold py-1 ml-auto text-blue-600">75%</span> --}}
             </div>
             <div class="flex pt-2">
-                <select id="course" name="state"
+                {{-- @if ($delivery->state == 2 || $delivery->state == 3)
+                <input disabled type="text" value="{{$delivery->state($delivery->state)}}">
+                @else --}}
+                <select id="state" name="state"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state">
-                    <option disabled selected value> -- select a course -- </option>
-                    <option value="0">Inactivo</option>
-                    <option value="1">Delivered</option>
-                    <option value="2">Rejected</option>
-                    <option value="3">Aprobado</option>
+                    <option disabled selected value> {{$delivery->state($delivery->state)}} </option>
+                    <option value="0">En corrección</option>
+                    <option value="1">Por Corregir</option>
+                    <option value="2">Aprobado</option>
+                    <option value="3">Desaprobado</option>
                 </select>
+
+                <button type="submit"
+                    class="bg-teal-600 text-white text-sm p-2 mt-4 shadow-lg hover:text-white w-full hover:bg-teal-900 rounded">Update</button>
+                {{-- @endif --}}
+
             </div>
-            <button type="submit"
-                class="bg-teal-600 text-white text-sm p-2 mt-4 shadow-lg hover:text-white w-full hover:bg-teal-900 rounded">Update</button>
+
         </form>
 
         <div class="w-6/12 ">

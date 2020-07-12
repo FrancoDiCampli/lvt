@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('courses', 'CourseController');
     Route::get('teacher', 'AdminController@teacher')->name('admin.teacher');
     Route::get('student', 'AdminController@student')->name('admin.student');
+    Route::get('adviser', 'AdminController@adviser')->name('admin.adviser');
 
     // Students Routes
     Route::get('deliveries', 'StudentController@deliveries')->name('student.deliveries');
@@ -46,6 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Ver tarea con su entrega
     Route::get('entrega/{delivery}', 'TeacherController@delivery')->name('teacher.delivery');
 
+    // Asesores
+    Route::get('showJob/{id}','AdviserController@showJob')->name('adviser.showJob');
+    Route::put('updateJob/{id}','AdviserController@updateJob')->name('adviser.updateJob');
 
     Route::resource('subjects', 'SubjectController');
 

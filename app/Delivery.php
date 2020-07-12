@@ -10,7 +10,7 @@ class Delivery extends Model
 {
     protected $guarded = [];
 
-    protected $state = ['inactive', 'delivered', 'rejected', 'accepted'];
+    protected $state = ['En corrección', 'Por Corregir', 'Aprobado', 'Desaprobado'];
 
     public function state($value)
     {

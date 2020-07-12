@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:student')->except('updateDelivery');
+        $this->middleware('role:teacher')->only('updateDelivery');
+    }
+
     public function penddings()
     {
         $jobs = StudentsTrait::pendding();
@@ -49,7 +55,7 @@ class StudentController extends Controller
                     $delivery = Delivery::create([
                         'job_id' => $request->job,
                         'file_path' => $nameFile,
-                        'state' => 1,
+                        'state' => 0,
                         'user_id' => Auth::user()->id,
                     ]);
                 }
@@ -85,6 +91,8 @@ class StudentController extends Controller
         Delivery::where('id', $id)
 
             ->update(['state' => $request->state]);
+
+        return redirect()->back();
     }
 
     public function show($id)

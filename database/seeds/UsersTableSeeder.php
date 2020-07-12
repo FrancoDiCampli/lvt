@@ -27,6 +27,17 @@ class UsersTableSeeder extends Seeder
 
         $this->users();
 
+        $usuario = User::create([
+            'name' => 'adviser',
+            'email' => 'adviser@mail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('asdf1234'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        $usuario->assignRole('adviser');
+
     }
 
     function users()
@@ -40,6 +51,7 @@ class UsersTableSeeder extends Seeder
         $admin = Role::create(['name' => 'admin']);
         $teacher = Role::create(['name' => 'teacher']);
         $student = Role::create(['name' => 'student']);
+        $adviser = Role::create(['name' => 'adviser']);
 
         $user = User::find(1);
         $user->assignRole($admin);

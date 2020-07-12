@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
     public function index(){
         $subjects =  Subject::all();
         return view('admin.subjects.index',compact('subjects'));

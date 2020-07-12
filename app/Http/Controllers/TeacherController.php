@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:teacher');
+    }
+    
     public function index($id)
     {
         $subject = Subject::find($id);
@@ -38,14 +43,14 @@ class TeacherController extends Controller
             'link' => 'nullable|url',
             'file' => 'required|file',
             'start' => 'date',
-            'end' => 'date'
+            'end' => 'date|after_or_equal:'.$request->start
         ]);
 
         $nameFile = FilesTrait::store($request, $ubicacion = 'tareas', $nombre = $subject->name);
 
         if ($nameFile) {
             $data['subject_id'] = $data['subject'];
-            $data['state'] = 1;
+            $data['state'] = 0;
 
             Job::create([
                 'title' => $data['title'],
@@ -55,7 +60,7 @@ class TeacherController extends Controller
                 'link' => $data['link'],
                 'start' => $data['start'],
                 'end' => $data['end'],
-                'state' => 1,
+                'state' => 0,
             ]);
         }
         session()->flash('messages', 'Tarea creada');

@@ -9,7 +9,7 @@ class Job extends Model
 {
     protected $guarded = [];
 
-    protected $state = ['inactive', 'active', 'completed', 'finished'];
+    protected $state = ['Borrador', 'Activa', 'Rechazado'];
 
     public function state($value)
     {
