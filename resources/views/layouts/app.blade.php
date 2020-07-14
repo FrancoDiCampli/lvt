@@ -18,7 +18,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
-<body class="bg-gray-200">
+<body class="bg-white">
     <div id="app">
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -71,7 +71,7 @@
             </div>
         </nav> --}}
 
-        <nav class="bg-white flex items-center justify-between">
+        {{-- <nav class="bg-white flex items-center justify-between">
             <div>
                 <a href="">
                       <img src="{{asset('img/logo.png')}}" class="w-32 h-32 p-5" alt="">
@@ -97,8 +97,8 @@
                 </form>
                 @endguest
             </div>
-        </nav>
-        <main class="py-4">
+        </nav> --}}
+        <main class="">
             @yield('content')
         </main>
     </div>

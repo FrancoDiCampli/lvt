@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="container mx-auto flex md:p-5 relative px-6 ">
+        <div class="container mx-auto flex md:p-5 relative px-6">
 
             <div id="sidebar" class="md:block w-0 md:w-3/12 transition-all delay-75  m-0 p-0 mx-auto text-left">
                 <button onclick="setRes()" class="md:hidden text-gray-700 mt-5 ml-5">
@@ -145,46 +145,50 @@
             </div>
 
 
-            <div class="main-content  md:w-10/12 w-full md:ml-5 px-5">
+            <div class="main-content  md:w-10/12 w-full md:ml-5">
 
 
-                @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                <div class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md"
-                    role="alert">
-                    <div class="flex">
-                        <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path
-                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                            </svg></div>
-                        <div>
-                            <p class="font-bold">{{$error}}</p>
-                            {{-- <p class="text-sm">Make sure you know how these changes affect you.</p> --}}
+
+
+
+                {{-- Mensaje de sesion --}}
+                <div class="container">
+                    @if (session('messages'))
+                        <!--Toast-->
+                        <div class="alert-toast fixed bottom-auto md:top-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+                            <input type="checkbox" class="hidden" id="footertoast">
+
+                            <label class="close cursor-pointer flex items-start justify-between w-full pl-3 pt-3 bg-green-200 md:h-auto h-auto rounded shadow-lg text-white" title="close" for="footertoast">
+                                {{ session('messages') }}
+
+                                <svg class="fill-current text-white mr-4 mt-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                    <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                                </svg>
+                            </label>
                         </div>
-                    </div>
-                </div>
-                @endforeach
-                @endif
 
-                @if (session('messages'))
-
-                <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
-                    role="alert">
-                    <div class="flex">
-                        <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path
-                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                            </svg></div>
-                        <div>
-                            <p class="font-bold">{{session('messages')}}</p>
-                            {{-- <p class="text-sm">Make sure you know how these changes affect you.</p> --}}
-                        </div>
-                    </div>
+                    @endif
                 </div>
 
-                @endif
+                <div class="container">
+                    @if (session('errores'))
+                        <!--Toast-->
+                        <div class="alert-toast fixed bottom-auto md:top-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+                            <input type="checkbox" class="hidden" id="footertoast">
+
+                            <label class="close cursor-pointer flex items-start justify-between w-full pl-3 pt-3 bg-red-500 sm:h-20 md:h-auto h-auto rounded shadow-lg text-white" title="close" for="footertoast">
+                                {{ session('errores') }}
+
+                                <svg class="fill-current text-white mr-4 mt-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                    <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                                </svg>
+                            </label>
+                        </div>
+
+                    @endif
+                </div>
+
+
 
                 <div class="breadcrumbs w-auto p-1 mt-10 bg-gray-700 text-sm">
                     @foreach (request()->segments() as $segment)
@@ -198,6 +202,11 @@
                         <b>></b> <span class="text-gray-100">{{$segment}}</span>
                     </a>
 
+                    @if ($loop->last)
+                    <a href="{{url()->current()}}">
+                        <b>></b> <span class="text-gray-100">{{$segment}}</span>
+                    </a>
+                    @endif
                     {{-- @if ($loop->last)
                     <b>></b> <span class="text-gray-100">{{$segment}}</span>
                     @endif --}}

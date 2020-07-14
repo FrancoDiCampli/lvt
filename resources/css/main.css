@@ -2,6 +2,81 @@
 
 @tailwind components;
 
+/* Our classes */
+
+/* Button primary */
+.btn{
+    @apply text-center justify-center px-6 py-2;
+}
+
+.btn-primary{
+    @apply bg-primary-400 text-white shadow-lg;
+}
+
+.btn-primary:hover{
+    @apply bg-primary-500;
+}
+
+.btn-primary:focus{
+    @apply bg-primary-100 outline-none;
+}
+
+/* Button secondary */
+.btn-secondary{
+    @apply bg-secondary-400 text-white shadow-lg;
+}
+
+.btn-secondary:hover{
+    @apply bg-secondary-200;
+}
+
+.btn-secondary:focus{
+    @apply bg-secondary-100 outline-none;
+}
+
+/* Button Blue */
+.btn-blue{
+    @apply bg-blue-300 text-white shadow-lg;
+}
+
+.btn-blue:hover{
+    @apply bg-blue-400;
+}
+
+.btn-blue:focus{
+    @apply bg-blue-100 outline-none;
+}
+
+/* Button Blue Dark */
+.btn-bluedark{
+    @apply bg-bluedark-500 text-white shadow-lg;
+}
+
+.btn-bluedark:hover{
+    @apply bg-bluedark-400;
+}
+
+.btn-bluedark:focus{
+    @apply outline-none;
+}
+
+/* Button Default */
+.btn-default{
+    @apply bg-transparent text-bluedark-500 border border-bluedark-500 shadow-lg;
+}
+
+.btn-default:hover{
+    @apply bg-bluedark-500 text-white;
+}
+
+.btn-default:focus{
+    @apply bg-transparent outline-none text-blue-300 border-blue-300;
+}
+
+
+
+
+
 
 @tailwind utilities;
 
@@ -20,6 +95,10 @@
 
 .bg-gradient-green{
     background-image: linear-gradient(to right, rgba(18, 185, 101, 0.966), rgb(17, 94, 55) );
+}
+
+.bg-gradient-bluedark{
+    background-image: linear-gradient(to right, #2C84C7, #0E2A3F);
 }
 
 .bg-gradient-red{
@@ -61,10 +140,103 @@
     right: 1rem;
 }
 
-.btn-teal{
-    @apply mb-5 font-semibold w-8/12 flex mx-auto text-center justify-center bg-teal-600 text-gray-200 px-5 py-2
+
+/* Toast style */
+/*Toast open/load animation*/
+.alert-toast {
+    -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
-.card{
-
+/*Toast close animation*/
+.alert-toast input:checked ~ * {
+    -webkit-animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
+
+@-webkit-keyframes slide-in-top{0%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-top{0%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@-webkit-keyframes slide-out-top{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}}@keyframes slide-out-top{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}}@-webkit-keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-bottom{0%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@-webkit-keyframes slide-out-bottom{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}}@keyframes slide-out-bottom{0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(1000px);transform:translateY(1000px);opacity:0}}@-webkit-keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}@keyframes slide-in-right{0%{-webkit-transform:translateX(1000px);transform:translateX(1000px);opacity:0}100%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}}@-webkit-keyframes fade-out-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(50px);transform:translateX(50px);opacity:0}}@keyframes fade-out-right{0%{-webkit-transform:translateX(0);transform:translateX(0);opacity:1}100%{-webkit-transform:translateX(50px);transform:translateX(50px);opacity:0}}
+
+
+/* Clase input */
+.form-input{
+    @apply leading-tight appearance-none bg-gray-200 text-gray-700 border-b-2 border-gray-400 py-3 px-4;
+}
+
+.form-input:hover{
+    @apply bg-gray-300;
+}
+
+.form-input:focus{
+    @apply outline-none bg-white border-primary-400;
+}
+
+
+
+/* Tab content - closed */
+.tab-content {
+    max-height: 0;
+    -webkit-transition: max-height .35s;
+    -o-transition: max-height .35s;
+    transition: max-height .35s;
+    }
+    /* :checked - resize to full height */
+    .tab input:checked ~ .tab-content {
+    max-height: 100vh;
+    }
+    /* Label formatting when open */
+    .tab input:checked + label{
+    /*@apply text-xl p-5 border-l-2 border-indigo-500 bg-gray-100 text-indigo*/
+    font-size: 1.25rem; /*.text-xl*/
+    padding: 1.25rem; /*.p-5*/
+    border-left-width: 2px; /*.border-l-2*/
+    border-color: #6574cd; /*.border-indigo*/
+    background-color: #f8fafc; /*.bg-gray-100 */
+    color: #6574cd; /*.text-indigo*/
+    }
+    /* Icon */
+    .tab label::after {
+    float:right;
+    right: 0;
+    top: 0;
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5;
+    font-size: 1.25rem;
+    text-align: center;
+    -webkit-transition: all .35s;
+    -o-transition: all .35s;
+    transition: all .35s;
+    }
+    /* Icon formatting - closed */
+    .tab input[type=checkbox] + label::after {
+    content: "+";
+    font-weight:bold; /*.font-bold*/
+    border-width: 1px; /*.border*/
+    border-radius: 9999px; /*.rounded-full */
+    border-color: #b8c2cc; /*.border-grey*/
+    }
+    .tab input[type=radio] + label::after {
+    content: "\25BE";
+    font-weight:bold; /*.font-bold*/
+    border-width: 1px; /*.border*/
+    border-radius: 9999px; /*.rounded-full */
+    border-color: #b8c2cc; /*.border-grey*/
+    }
+    /* Icon formatting - open */
+    .tab input[type=checkbox]:checked + label::after {
+    transform: rotate(315deg);
+    background-color: #6574cd; /*.bg-indigo*/
+    color: #f8fafc; /*.text-grey-lightest*/
+    }
+    .tab input[type=radio]:checked + label::after {
+    transform: rotateX(180deg);
+    background-color: #6574cd; /*.bg-indigo*/
+    color: #f8fafc; /*.text-grey-lightest*/
+    }
+
+
+
+
+
+

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('delivery/{id}','StudentController@show')->name('delivery.show');
     Route::post('add/comment','StudentController@addComment')->name('comment.store');
 
+    //Subjects
     // Teachers
     Route::resource('teachers', 'TeacherController')->except(['create', 'index']);
     Route::get('teacher/create/{subject}', 'TeacherController@create')->name('teacher.create');
@@ -53,12 +54,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('subjects', 'SubjectController');
 
+
     // Enrollment
     Route::resource('enrollments', 'EnrollmentController');
 
     // Jobs
     Route::get('jobs/descargar/{job}', 'StudentController@descargar')->name('jobs.descargar');
 
+    //ruta eliminar curso por metodo get
+    Route::get('courseDelete/{id}', 'CourseController@destroy')->name('courses.destroy');
 
     // Nuevas Rutas
     Route::get('import','UserController@import')->name('import');

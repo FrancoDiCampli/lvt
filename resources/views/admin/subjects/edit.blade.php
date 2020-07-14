@@ -5,11 +5,12 @@
 <div class="container font-montserrat text-sm ">
     <div class="card  rounded-sm bg-gray-100 mx-auto md:mt-10 shadow-lg">
         <div class="card-title bg-white w-full p-1 md:p-5  border-b flex items-center justify-between md:justify-between ">
-           <h1 class="text-teal-600 font-semibold">Subject</h1>
+            <h1 class="text-teal-600 font-semibold">Edit Subject: {{$subject->name}}</h1>
         </div>
         <div class="card-body py-5">
-            <form method="POST" action="{{ route('subjects.store') }}" class="mx-auto" >
+            <form method="POST" action="{{ route('subjects.update', $subject->id) }}" class="mx-auto" >
                 @csrf
+                @method('PUT')
                 <div class="md:flex">
                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
@@ -19,7 +20,7 @@
                         <select id="course"  onchange="setName()" name="course_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                             <option disabled selected value> -- select a course -- </option>
                             @foreach ($courses as $course)
-                                <option value="{{$course->code}}">{{$course->name}}</option>
+                                <option value="{{$course->code}}" @if ($course->id == $subject->course_id) selected @endif>{{$course->name}}</option>
                             @endforeach
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -36,7 +37,7 @@
                       <select id="teacher" onchange="setName()"  id="" name="user_id"  class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                         <option disabled selected value> -- select an teacher -- </option>
                             @foreach ($teachers as $teacher)
-                                <option value="{{$teacher->id}}">{{$teacher->name}}</option>
+                                <option value="{{$teacher->id}}" @if ($teacher->id == $subject->user_id) selected @endif>{{$teacher->name}}</option>
                             @endforeach
                       </select>
                       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -51,14 +52,14 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                           Subject
                         </label>
-                        <input type="text" id="subjectname" onkeyup="setName()" name="name" value="" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Subject Name">
+                        <input type="text" id="subjectname" onkeyup="setName()" name="name" value="{{ old('name', $subject->name) }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Subject Name">
                     </div>
 
                     <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                           Code
                         </label>
-                        <input id="code" type="text"  name="code" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="ex: M1A2020">
+                        <input id="code" type="text"  name="code" value="{{ old('code', $subject->code) }}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="ex: M1A2020">
                     </div>
 
 

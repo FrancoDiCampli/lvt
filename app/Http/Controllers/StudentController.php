@@ -90,9 +90,9 @@ class StudentController extends Controller
     {
         Delivery::where('id', $id)
 
-            ->update(['state' => $request->state]);
+          ->update(['state' => $request->state]);
 
-        return redirect()->back();
+            return redirect()->route('teachers.show', $request->id_job);
     }
 
     public function show($id)

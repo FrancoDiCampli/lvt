@@ -1,28 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container font-montserrat">
-        <div class="card w-11/12 md:w-5/12 rounded-sm bg-gray-100 mx-auto mt-10 shadow-lg">
-            <div class="card-title bg-white w-full p-5 border-b">
-               <h1 class="text-center font-semibold text-teal-600">Welcome</h1>
+
+
+<!-- Container -->
+<div class="mx-auto">
+    <div class="flex justify-center">
+        <!-- Row -->
+        <div class="w-full xl:w-4/4 lg:w-12/12 flex">
+            <!-- Col -->
+            <div
+                class="w-full h-auto bg-gray-300 hidden lg:block md:block lg:w-1/2 bg-cover rounded-l-md"
+                {{-- style="background-image: url('https://source.unsplash.com/K4mSJ7kc0As/600x800')" --}}
+
+            ><img src="{{asset('img/login.png')}}"  class="w-auto h-auto" alt=""></div>
+            <!-- Col -->
+            <div class="w-full lg:w-1/2 bg-white p-5 rounded-sm lg:rounded-l-none">
+                <div class="block lg:hidden md:hidden mx-auto justify-center flex">
+                <a href="">
+                      <img src="{{asset('img/sm-icon-svg.svg')}}" class="w-40 h-40" alt="">
+
+                </a>
+
             </div>
-            <div class="card-body py-5">
-                <form method="POST" action="{{ route('login') }}" class="mx-auto" >
+                <h3 class="pt-12 lg:pt-32 text-2xl text-center text-primary-400 font-montserrat font-bold">Welcome Schoolmate!</h3>
+                <form method="POST" action="{{ route('login') }}" class="px-8 md:px-12 lg:px-12 xl:px-24 pt-6 pb-8 mb-4 bg-white rounded">
                     @csrf
-                    <div class="flex items-center border w-8/12 mx-auto h-8 bg-white justify-between">
-                        <svg aria-hidden="true" data-prefix="fas" data-icon="user"
-                        class="p-1 text-gray-600 mx-auto h-5 w-5  svg-inline--fa fa-user fa-w-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg>
-                        <input type="email"  name="email" required  placeholder="email" class="w-10/12 bg-white focus:outline-none ">
+                    <div class="mb-4 relative">
+                        <input class="input border-b border-gray-400 appearance-none w-full px-3 py-3 pt-5 pb-2 focus focus:border-primary-400 focus:outline-none active:outline-none active:border-indigo-600" placeholder="Username" id="email" type="email" name="email" required>
+
+                    </div>
+                    <div class="mb-4 relative">
+                        <input class="input border-b border-gray-400 appearance-none w-full px-3 py-3 pt-5 pb-2 focus focus:border-primary-400 focus:outline-none active:outline-none active:border-indigo-600" placeholder="Password" id="password" type="password" name="password" required>
 
                     </div>
 
-                    <div class="flex items-center border w-8/12 my-5 mx-auto h-8 bg-white justify-between">
-                        <svg aria-hidden="true" data-prefix="fas" data-icon="key"
-                            class="p-1  text-gray-600 mx-auto h-5 w-5  svg-inline--fa fa-key fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 01261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z"/></svg>
-                            <input type="password" name="password" placeholder="password" class="w-10/12 bg-white focus:outline-none">
-
-                        </div>
-                        @error('password')
+                    @error('password')
                         <span class="flex my-5 justify-center italic text-red-600  text-sm" role="alert">
                                 {{$message}}
                         </span>
@@ -34,14 +47,35 @@
                         </span>
                     @enderror
 
-                    <button type="submit" class="mb-5 font-semibold w-8/12 flex mx-auto text-center justify-center bg-teal-600 text-gray-200 px-5 py-2">Login</button>
+                    <div class="mb-4">
+                        <input class="mr-2 leading-tight" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                        <label class="text-sm" for="remember">
+                            Remember Me
+                        </label>
+                    </div>
+                    <div class="mb-6 text-center">
+                        <button
+                            class="btn btn-primary w-full"
+                            type="submit"
+                        >
+                            Sign In
+                        </button>
+                    </div>
+                    <hr class="mb-6 border-t" />
+
+                    <div class="text-center">
+                        @if (Route::has('password.request'))
+                        <a class="btn btn-link inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                         @endif
+                    </div>
 
                 </form>
-
-
             </div>
-
         </div>
-
     </div>
+</div>
+
+
 @endsection
