@@ -1,5 +1,8 @@
 <?php
 
+use App\Course;
+use App\Enrollment;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,6 +15,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('allCourses',function(){
+    return Course::all();
+});
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -43,7 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('subjects', 'SubjectController');
 
-    //Enrollments
+
+    // Enrollment
     Route::resource('enrollments', 'EnrollmentController');
 
     // Jobs
@@ -51,5 +59,21 @@ Route::group(['middleware' => 'auth'], function () {
 
     //ruta eliminar curso por metodo get
     Route::get('courseDelete/{id}', 'CourseController@destroy')->name('courses.destroy');
+
+    // Nuevas Rutas
+    Route::get('import','UserController@import')->name('import');
+    Route::post('import/users','UserController@importUsers')->name('import.users');
+
+    // Users
+    Route::resource('user', 'UserController');
+
+    Route::post('test',function(Request $request){
+        return $request;
+    });
+
+    Route::resource('posts', 'PostController')->except('create');
+    Route::resource('annotations', 'AnnotationController');
+
+    Route::get('newpost/{subject}','PostController@create')->name('new.post');
 });
 

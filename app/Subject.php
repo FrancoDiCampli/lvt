@@ -23,4 +23,10 @@ class Subject extends Model
     {
         return $this->hasMany(Job::class)->orderBy('id', 'DESC');
     }
+
+    public function posts()
+    {
+
+        return $this->hasMany(Post::class);
+    }
 }

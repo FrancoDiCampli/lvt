@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="md:w-6/12 mx-auto">
         <div class="w-full bg-white h-8 rounded-full px-5 py-1 content-center">
             <input type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
@@ -19,11 +20,12 @@
             <p class="mx-2">Order By <span id="topic"></span> </p>
 
             <ul id="orderOption" class="absolute hidden top-10 left-0 bg-white border shadow-lg">
-                <li id="item"></li>
+                <li>item</li>
+                <li>item</li>
+                <li>item</li>
             </ul>
         </button>
-        @foreach ($alumnos ?? [] as $alumno)
-        @if (count($alumno['delivery'])>0)
+        @foreach ($subject->jobs as $job)
         <div class="card my-2 w-full  bg-white shadow-lg p-5 border-l-2 border-teal-600 rounded-sm">
             <div class=" w-full  flex justify-end relative">
                 <button onclick="toogleFm()" class="focus:outline-none">
@@ -33,79 +35,82 @@
                 </button>
                     <div id="float-menu" class="hidden border bg-white absolute p-2 text-sm w-6/12 md:w-3/12  top-10 right-0 shadow-lg
                     rounded-sm" >
-                        <a href="{{route('teacher.delivery', $alumno['delivery'][0]->id)}}" class="block py-2">Entregas</a>
+                        <a href="{{route('teachers.show', $job->id)}}" class="block py-2">Entregas</a>
 
-                        <a href="{{route('teacher.descargarDelivery', $alumno['delivery'][0]->file_path)}}" class="block py-2">Descargar</a>
+                        <a href="" class="block py-2">Option C</a>
                 </div>
 
             </div>
 
             <div class="flex justify-between items-center">
                 <div class="text-gray-700">
-                    <h1 >{{$job->title}}</h1>
-                    <h3 class="font-semibold">{{$alumno['student']->name}}</h3>
-                    <p class="italic">Fecha entrega <span>{{$alumno['delivery'][0]->created_at->format('d-m-Y')}}</span> </p>
+                    <h1 class="font-semibold">{{$job->title}}</h1>
+                    <h3>Limite</h3>
+                    <p class="italic">Fecha limite <span>{{$job->end->format('d-m-Y')}}</span> </p>
                 </div>
                 <div>
-                    <button class="bg-red-600 rounded-full text-white py-1 px-5">{{$job->state($alumno['delivery'][0]->state)}}</button>
+                    <button class="bg-red-600 rounded-full text-white py-1 px-5">{{$job->state($job->state)}}</button>
                 </div>
             </div>
 
         </div>
-        @else
-            {{-- <h1>No deliveries</h1> --}}
-        @endif
         @endforeach
 
 
     </div>
 
-    <div class="comments">
-        <h1 class="text-2xl font-rubik">Comments</h1>
+    <div class="comments mt-10">
+        <h1 class="text-2xl font-rubik">Posts</h1>
+    <a href="{{route('new.post',$subject->id)}}">New Post</a>
+    @if(count($posts)>0)
+        @foreach ($posts as $post)
         <div class="card bg-white w-10/12 p-5 my-3">
             <div class="card-title">
-                <h1>First Comment</h1>
-                <h4>Author: Yo mismo</h4>
-                <span>Published: 12/12/12</span>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nam placeat ab ea, odit earum consectetur! Atque repellat quis dolores temporibus dolorum sapiente facere molestias numquam! Explicabo repudiandae sed facere!</p>
+                <h1>{{$post->title}}</h1>
+            <h4>Author: {{auth()->user()->name}}</h4>
+                <span>Published: {{$post->created_at}}</span>
+                <span>{{$post->description}}</span>
+                <p>{{$post->content}}</p>
             </div>
 
         </div>
+            @foreach ($post->annotations as $annotation)
+            <div class="card bg-white w-8/12 p-5">
+                <div class="card-title">
+                    <h4>Author: {{$annotation->user->name}}</h4>
+                    <h1>{{$annotation->annotation}}</h1>
 
-        <div class="card bg-white w-8/12 p-5">
-            <div class="card-title">
-                <h1>First Comment</h1>
-                <h4>Author: Yo mismo</h4>
-                <span>Published: 12/12/12</span>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nam placeat ab ea, odit earum consectetur! Atque repellat quis dolores temporibus dolorum sapiente facere molestias numquam! Explicabo repudiandae sed facere!</p>
+                    <span>Published: {{$annotation->created_at}}</span>
+                </div>
+
             </div>
+            @endforeach
 
-        </div>
+            <div>
+            <form action="{{route('annotations.store')}}" method="POST">
+                    @csrf
+                    <input type="text" name="post_id" value="{{$post->id}}" hidden>
+                    <input type="text" name="subject_id" value="{{$subject->id}}" hidden>
+                    <div
+                        class="w-8/12 mx-5 border border-gray-600 bg-white h-8 rounded-full px-5 py-1 content-center flex items-center">
+                        <input name="annotation" type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
+                        <button type="submit" class="text-teal-600 font-semibold">Comment</button>
+                    </div>
+                </form>
+            </div>
+        @endforeach
+
+    @else
+            <h1>No posee posts</h1>
+    @endif
+
 
     </div>
 
+</div>
+
 @push('js')
     <script>
-        let topicos = {
-            "materias":[
-                {'name':'Matematica'},
-                {'name':'Lengua'},
-                {'name':'Geografia'},
-            ],
-            "estados":[
-                {'name':'Activa'},
-                {'name':'Inactiva'},
-                {'name':'Entregada'},
-                {'name':'Rechazada'},
-                {'name':'Aprobada'},
-            ],
-            "fechas":[
-                {'name':'Trimestre 1'},
-                {'name':'Trimestre 2'},
-                {'name':'Trimestre 3'},
-            ]
-        }
-
         let fm = document.getElementById('float-menu')
         let oo = document.getElementById('orderOption')
 
@@ -117,18 +122,8 @@
 
         function setOrder(){
             let attribute = this.getAttribute("data-order");
+
             document.getElementById('topic').innerHTML = attribute
-
-            let item = document.getElementById('item')
-            item.innerHTML = ''
-            topicos[attribute].forEach(element => {
-                    console.log(element)
-                   item.innerHTML +=  '<li id="item">'+element.name+'</li>'
-            });
-
-            console.log(topicos[attribute])
-
-
 
         }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Job;
 use App\Comment;
 use App\Delivery;
+use App\Traits\FilesTrait;
 use Illuminate\Http\Request;
 use App\Traits\StudentsTrait;
 use Illuminate\Support\Facades\DB;
@@ -37,18 +38,21 @@ class StudentController extends Controller
 
         try {
             DB::transaction(function () use ($request) {
-                if ($request->file->getClientOriginalExtension() == 'pdf' || $request->file->getClientOriginalExtension() == 'docx') {
-                    $nameFile = time() . '_' . auth()->user()->name . '.' . $request->file->getClientOriginalExtension();
-                    $path = public_path('entregas/');
-                    $request->file->move($path, $nameFile);
-                }
+                $nameFile = FilesTrait::store($request, $ubicacion = 'entregas', $nombre = auth()->user()->name);
+                // if ($request->file->getClientOriginalExtension() == 'pdf' || $request->file->getClientOriginalExtension() == 'docx') {
+                //     $nameFile = time() . '_' . auth()->user()->name . '.' . $request->file->getClientOriginalExtension();
+                //     $path = public_path('entregas/');
+                //     $request->file->move($path, $nameFile);
+                // }
 
-                $delivery = Delivery::create([
-                    'job_id' => $request->job,
-                    'file_path' => $nameFile,
-                    'state' => 1,
-                    'user_id' => Auth::user()->id,
-                ]);
+                if ($nameFile) {
+                    $delivery = Delivery::create([
+                        'job_id' => $request->job,
+                        'file_path' => $nameFile,
+                        'state' => 1,
+                        'user_id' => Auth::user()->id,
+                    ]);
+                }
 
                 // Si tiene comentarios los crea
                 if ($request->comment) {

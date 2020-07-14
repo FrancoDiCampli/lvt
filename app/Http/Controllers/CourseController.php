@@ -61,5 +61,7 @@ class CourseController extends Controller
         }
 
 
+
+       return redirect()->route('courses.index')->with('messages', 'Entrega creada');
     }
 }

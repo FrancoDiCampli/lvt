@@ -36,5 +36,101 @@
         </div>
     </div>
 
+    <div id="accordion">
+        <h1 class="mb-4">
+            tailwind collapsible
+        </h1>
+        <section class="shadow">
+            @foreach($subjects as $subject)
+
+            <article class="border-b">
+                <div class="border-l-2 border-transparent">
+                    <header class="flex justify-between items-center p-5 pl-8 pr-8 cursor-pointer select-none">
+                        <span class="text-grey-darkest font-thin text-xl">
+                            {{$subject->name}}
+                        </span>
+                        <div class="rounded-full border border-grey w-7 h-7 flex items-center justify-center">
+                            <!-- icon by feathericons.com -->
+                            <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <polyline points="6 9 12 15 18 9">
+                                </polyline>
+                            </svg>
+                        </div>
+                    </header>
+                    <div>
+                        <div class="pl-8 pr-8 pb-5 text-grey-darkest">
+                            <ul class="pl-4">
+                                @foreach ($subject->posts as $post)
+                                    <li class="pb-2">
+                                    <span>Autor {{$post->user->name}}</span>
+                                    {{$post->title}}
+                                    @foreach ($post->annotations as $annotation)
+                                       <div>
+                                        <div class="pl-8 pr-8 pb-5 text-grey-darkest">
+                                            <ul class="pl-4">
+                                                <li class="pb-2">
+                                                <h2>Comment: {{$annotation->annotation}} </h2>
+                                                    <span>by{{$annotation->user->name}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    <form action="{{route('annotations.store')}}" method="POST">
+                                        @csrf
+                                        <input type="text" name="post_id" value="{{$post->id}}" hidden>
+                                        <input type="text" name="subject_id" value="{{$subject->id}}" hidden>
+                                        <div
+                                            class="w-8/12 mx-5 border border-gray-600 bg-white h-8 rounded-full px-5 py-1 content-center flex items-center">
+                                            <input name="annotation" type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
+                                            <button type="submit" class="text-teal-600 font-semibold">Comment</button>
+                                        </div>
+                                    </form>
+                                    </li>
+                                @endforeach
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            @endforeach
+            {{-- <article class="border-b">
+                <div class="border-l-2 bg-grey-lightest border-indigo">
+                    <header class="flex justify-between items-center p-5 pl-8 pr-8 cursor-pointer select-none">
+                        <span class="text-indigo font-thin text-xl">
+                            Lorem ipsum dolor sit amet
+                        </span>
+                        <div class="rounded-full border border border-indigo w-7 h-7 flex items-center justify-center bg-indigo">
+                            <!-- icon by feathericons.com -->
+                            <svg aria-hidden="true" data-reactid="281" fill="none" height="24" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <polyline points="18 15 12 9 6 15">
+                                </polyline>
+                            </svg>
+                        </div>
+                    </header>
+                    <div>
+                        <div class="pl-8 pr-8 pb-5 text-grey-darkest">
+                            <ul class="pl-4">
+                                <li class="pb-2">
+                                    consectetur adipiscing elit
+                                </li>
+                                <li class="pb-2">
+                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                </li>
+                                <li class="pb-2">
+                                    Viverra orci sagittis eu volutpat odio facilisis mauris
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article> --}}
+
+
+        </section>
+    </div>
+
 
 @endsection

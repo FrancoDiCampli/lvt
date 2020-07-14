@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Job;
+use App\Post;
 use App\Subject;
 use App\Delivery;
 use Illuminate\Http\Request;
 use App\Traits\TeachersTrait;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -15,17 +17,11 @@ class TeacherController extends Controller
     {
         $subject = Subject::find($id);
         $subject->jobs;
-        // $states = ['Activas', 'Terminadas', 'Rechazadas'];
-        // $year = now()->format('Y');
-        // $subjects = TeachersTrait::subjects($year);
-        // $jobs = collect();
-        // $subjects->each(function ($subject) use ($jobs) {
-        //     $subject->jobs->each(function ($job) use ($jobs) {
-        //         $jobs->push($job);
-        //     });
-        // });
 
-        return view('admin.teachers.subject', compact('subject'));
+        // $posts = Post::where('user_id',Auth::user()->id)->where('course_id',$subject->course_id)->with('annotations')->get();
+        $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->get();
+
+        return view('admin.teachers.subject', compact('subject','posts'));
     }
 
     public function create($subject)
@@ -78,6 +74,8 @@ class TeacherController extends Controller
         $job = Job::find($id);
         $matriculas = $job->subject->course()->get()[0]->enrollments;
         $alumnos = collect();
+
+
         foreach ($matriculas as $mat) {
             $alumno = collect();
             $alumno->put('student', $mat->student);

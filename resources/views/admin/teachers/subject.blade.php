@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="md:w-6/12 mx-auto">
         <div class="w-full bg-white h-8 rounded-full px-5 py-1 content-center">
             <input type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
@@ -12,49 +13,118 @@
             <button id="estado" data-order="estados" class="btn bg-red-600 rounded-full text-white py-1 px-5">Estado</button>
         </div>
 
-        <button id="order" onclick="toogleOrder()" data-order="" class="my-5 relative text-gray-700 flex items-center focus:outline-none">
 
-            <svg aria-hidden="true" data-prefix="fas" data-icon="sort-amount-down"
-                class="h-3 w-3 svg-inline--fa fa-sort-amount-down fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 416h-64a16 16 0 00-16 16v32a16 16 0 0016 16h64a16 16 0 0016-16v-32a16 16 0 00-16-16zm-128-64h-48V48a16 16 0 00-16-16H80a16 16 0 00-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0022.62 0l80-96C197.35 369.26 190.22 352 176 352zm256-192H240a16 16 0 00-16 16v32a16 16 0 0016 16h192a16 16 0 0016-16v-32a16 16 0 00-16-16zm-64 128H240a16 16 0 00-16 16v32a16 16 0 0016 16h128a16 16 0 0016-16v-32a16 16 0 00-16-16zM496 32H240a16 16 0 00-16 16v32a16 16 0 0016 16h256a16 16 0 0016-16V48a16 16 0 00-16-16z"/></svg>
-            <p class="mx-2">Order By <span id="topic"></span> </p>
 
-            <ul id="orderOption" class="absolute hidden top-10 left-0 bg-white border shadow-lg">
-                <li>item</li>
-                <li>item</li>
-                <li>item</li>
-            </ul>
-        </button>
-        @foreach ($subject->jobs as $job)
-        <div class="card my-2 w-full  bg-white shadow-lg p-5 border-l-2 border-teal-600 rounded-sm">
-            <div class=" w-full  flex justify-end relative">
-                <button onclick="toogleFm()" class="focus:outline-none">
-                    <svg aria-hidden="true" data-prefix="fas" data-icon="ellipsis-v"
-                    class=" h-4 w-4  svg-inline--fa fa-ellipsis-v fa-w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"/></svg>
 
-                </button>
-                    <div id="float-menu" class="hidden border bg-white absolute p-2 text-sm w-6/12 md:w-3/12  top-10 right-0 shadow-lg
-                    rounded-sm" >
-                        <a href="{{route('teachers.show', $job->id)}}" class="block py-2">Entregas</a>
 
-                        <a href="" class="block py-2">Option C</a>
+    </div>
+
+
+    @if(count($posts)>0)
+    @foreach ($posts as $post)
+    <!-- post card -->
+    <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto m-6"><!--horizantil margin is just for display-->
+        <div class="flex items-start px-4 py-6">
+        <img class="w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar">
+        <div class="">
+            <div class="flex items-center justify-between pt-2">
+                <h2 class="text-md font-medium text-gray-900 -mt-1">{{auth()->user()->name}} </h2>
+
+            </div>
+            <p class="text-gray-600 text-xs">{{$post->created_at}} </p>
+            <h3 class="py-4 pb-2 text-lg font-semibold text-gray-800">{{$post->title}}</h3>
+            <p class="mt-1 text-gray-700 text-md">
+                {{$post->description}}
+            </p>
+            <div class="mt-4 flex items-center">
+                <div class="flex mr-2 text-gray-700 text-sm mr-8">
+                    <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+                    </svg>
+                    <span>8</span>
+                </div>
+                <div class="flex mr-2 text-gray-700 text-sm mr-4">
+                    <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                    </svg>
+                    <span>share</span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    @endforeach
+
+    @else
+            <h1>No posee posts</h1>
+    @endif
+
+    <div class="w-full rounded-lg overflow-hidden shadow-lg bg-white mx-auto">
+        <div class="flex flex-col min-h-full">
+          <div class="px-6 py-4 border-b">
+            <div class="text-xl text-center">Block</div>
+          </div>
+          <div class="px-6 py-10 flex-grow">
+            <p class="text-gray-700 text-base">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+            </p>
+          </div>
+          <div class="px-5 py-3 border-t bg-gray-100 flex justify-end">
+            <button class="btn-gradient-default text-gray-600 font-medium text-sm py-1 px-5 rounded mr-3">Cancel</button>
+            <button class="btn-gradient-danger text-white font-medium text-sm py-1 px-5 rounded">Block</button>
+          </div>
+        </div>
+      </div>
+
+
+
+        <div class="comments mt-10">
+            <h1 class="text-2xl font-rubik">Posts</h1>
+        <a href="{{route('new.post',$subject->id)}}">New Post</a>
+        @if(count($posts)>0)
+            @foreach ($posts as $post)
+            <div class="card bg-white w-10/12 p-5 my-3">
+                <div class="card-title">
+                    <h1>{{$post->title}}</h1>
+                <h4>Author: {{auth()->user()->name}}</h4>
+                    <span>Published: {{$post->created_at}}</span>
+                    <span>{{$post->description}}</span>
+                    <p>{{$post->content}}</p>
                 </div>
 
             </div>
+                @foreach ($post->annotations as $annotation)
+                <div class="card bg-white w-8/12 p-5">
+                    <div class="card-title">
+                        <h4>Author: {{$annotation->user->name}}</h4>
+                        <h1>{{$annotation->annotation}}</h1>
 
-            <div class="flex justify-between items-center">
-                <div class="text-gray-700">
-                    <h1 class="font-semibold">{{$job->title}}</h1>
-                    <h3>Limite</h3>
-                    <p class="italic">Fecha limite <span>{{$job->end->format('d-m-Y')}}</span> </p>
+                        <span>Published: {{$annotation->created_at}}</span>
+                    </div>
+
                 </div>
+                @endforeach
+
                 <div>
-                    <button class="bg-red-600 rounded-full text-white py-1 px-5">{{$job->state($job->state)}}</button>
+                <form action="{{route('annotations.store')}}" method="POST">
+                        @csrf
+                        <input type="text" name="post_id" value="{{$post->id}}" hidden>
+                        <input type="text" name="subject_id" value="{{$subject->id}}" hidden>
+                        <div
+                            class="w-8/12 mx-5 border border-gray-600 bg-white h-8 rounded-full px-5 py-1 content-center flex items-center">
+                            <input name="annotation" type="text" class="bg-transparent focus:outline-none w-full  text-sm   ">
+                            <button type="submit" class="text-teal-600 font-semibold">Comment</button>
+                        </div>
+                    </form>
                 </div>
-            </div>
+            @endforeach
+
+        @else
+                <h1>No posee posts</h1>
+        @endif
+
 
         </div>
-        @endforeach
-
 
     </div>
 
@@ -62,20 +132,30 @@
     <script>
         let fm = document.getElementById('float-menu')
         let oo = document.getElementById('orderOption')
+
         let bt = document.getElementsByClassName('btn')
+
         Array.from(bt).forEach(function(element) {
         element.addEventListener('click', setOrder);
         });
+
         function setOrder(){
             let attribute = this.getAttribute("data-order");
+
             document.getElementById('topic').innerHTML = attribute
+
         }
+
         function toogleFm(){
             fm.classList.toggle('hidden')
+
         }
         function toogleOrder(){
             oo.classList.toggle('hidden')
+
         }
+
+
     </script>
 @endpush
 @endsection
