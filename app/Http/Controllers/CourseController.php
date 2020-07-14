@@ -9,10 +9,16 @@ use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
     public function index(){
         $courses =  Course::all();
         return view('admin.courses.index',compact('courses'));
     }
+    
     public function create(){
         return view('admin.courses.create');
     }

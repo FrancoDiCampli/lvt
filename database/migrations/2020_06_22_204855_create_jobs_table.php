@@ -19,6 +19,7 @@ class CreateJobsTable extends Migration
             $table->string('description');
             $table->string('subject_id');
             $table->string('file_path');
+            $table->string('link')->nullable();
             $table->string('start');
             $table->string('end');
             $table->tinyInteger('state');

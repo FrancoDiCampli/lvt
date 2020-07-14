@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('courses', 'CourseController');
     Route::get('teacher', 'AdminController@teacher')->name('admin.teacher');
     Route::get('student', 'AdminController@student')->name('admin.student');
+    Route::get('adviser', 'AdminController@adviser')->name('admin.adviser');
 
     // Students Routes
     Route::get('deliveries', 'StudentController@deliveries')->name('student.deliveries');
@@ -38,8 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
     //Subjects
     // Teachers
     Route::resource('teachers', 'TeacherController')->except(['create', 'index']);
-    Route::get('nuevaTarea/{subject}', 'TeacherController@nuevaTarea')->name('nuevaTarea');
     Route::get('teacher/create/{subject}', 'TeacherController@create')->name('teacher.create');
+    Route::get('teacher/showJob/{id}', 'TeacherController@showJob')->name('teacher.showJob');
     Route::get('teacher/index/{subject}', 'TeacherController@index')->name('teacher.index');
     Route::get('teacher/descargar/{job}', 'TeacherController@descargar')->name('teacher.descargar');
     Route::get('teacher/descargarDelivery/{job}', 'TeacherController@descargarDelivery')->name('teacher.descargarDelivery');
@@ -47,6 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Ver tarea con su entrega
     Route::get('entrega/{delivery}', 'TeacherController@delivery')->name('teacher.delivery');
 
+    // Asesores
+    Route::get('showJob/{id}','AdviserController@showJob')->name('adviser.showJob');
+    Route::put('updateJob/{id}','AdviserController@updateJob')->name('adviser.updateJob');
 
     Route::resource('subjects', 'SubjectController');
 
