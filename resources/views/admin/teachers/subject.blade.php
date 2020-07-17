@@ -129,7 +129,10 @@
     @endif
     </div>
 
-    {{ $posts->links() }}
+    <div class="mx-auto pt-1 pb-8">
+        {{ $posts->links() }}
+    </div>
+
 {{--
     </div>
 </div> --}}

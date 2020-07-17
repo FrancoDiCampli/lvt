@@ -619,6 +619,57 @@ video {
   }
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination .page-item .page-link {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-right-width: 1px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  text-decoration: none;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #f1f5f8;
+}
+
+.pagination .page-item:first-child .page-link {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.pagination .page-item:last-child .page-link {
+  border-right-width: 1px;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #028C84;
+  border-color: #028C84;
+  color: #ffffff;
+}
+
+.pagination .page-item.disabled .page-link {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+
 /* Our classes */
 
 /* Button primary */
