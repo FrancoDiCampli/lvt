@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
 
-<body class="bg-gray-200 font-montserrat" id="all">
+<body class="bg-gray-100 font-montserrat" id="all">
 
     <main id="app" class="">
-        <div class="top-navbar w-10/12 mx-auto flex items-center justify-between p-5 border-b border-gray-600">
-            <h1 class="text-teal-500 font-rubik text-2xl ">School<span class="font-semibold">Mate</span></h1>
+        <div class="top-navbar w-full mx-auto flex items-center justify-between bg-gray-200 p-3 border-b border-gray-400">
+            <h1 class="text-teal-500 font-rubik text-2xl ml-6">School<span class="font-semibold">Mate</span></h1>
 
             <div class="text-xs md:text-base text-right text-gray-600 ">
                 <a href="" class="">admin@mail.com</a> |
@@ -50,9 +50,9 @@
             </div>
         </div>
 
-        <div class="container mx-auto flex md:p-5 relative px-6">
+        <div class="mx-full flex min-h-screen  relative">
 
-            <div id="sidebar" class="md:block w-0 md:w-3/12 transition-all delay-75  m-0 p-0 mx-auto text-left">
+            <div id="sidebar" class="md:block bg-gray-200 shadow-lg w-0 md:w-3/12 transition-all delay-75  m-0 p-0 mx-auto text-left">
                 <button onclick="setRes()" class="md:hidden text-gray-700 mt-5 ml-5">
                     {{-- <svg aria-hidden="true" data-prefix="fas" data-icon="bars"
                         class="h-5 w-5 svg-inline--fa fa-bars fa-w-14"
@@ -63,8 +63,8 @@
                     </svg> --}}
 
                 </button>
-                <div class="md:mt-12 ">
-                    <a href="{{route('home')}}" class="flex  justify-center md:justify-start text-gray-600 mt-5">
+                <div class="md:pt-10 pb-10 px-6 pl-8">
+                    <a href="{{route('home')}}" class="flex justify-center md:justify-start text-gray-600 mt-1 hover:text-gray-700 focus:bg-gray-300 rounded-md p-2">
                         <svg aria-hidden="true" data-prefix="fas" data-icon="tachometer-alt"
                             class="h-5 w-5  svg-inline--fa fa-tachometer-alt fa-w-18" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 576 512">
@@ -75,7 +75,7 @@
                     </a>
 
                     <a href="{{route('courses.index')}}"
-                        class="flex md:justify-start justify-center text-gray-600 mt-5">
+                        class="flex md:justify-start justify-center text-gray-600 mt-1 hover:text-gray-700 focus:bg-gray-300 rounded-md p-2">
                         <svg aria-hidden="true" data-prefix="fas" data-icon="graduation-cap"
                             class="h-5 w-5  svg-inline--fa fa-graduation-cap fa-w-20" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 640 512">
@@ -86,7 +86,7 @@
                     </a>
 
 
-                    <a href="" class="flex md:justify-start justify-center text-gray-600 mt-5">
+                    <a href="" class="flex md:justify-start justify-center text-gray-600 mt-1 hover:text-gray-700 focus:bg-gray-300 rounded-md p-2">
                         <svg aria-hidden="true" data-prefix="fas" data-icon="tasks"
                             class="h-5 w-5 svg-inline--fa fa-tasks fa-w-16" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
@@ -95,7 +95,7 @@
                         </svg>
                         <span class="mx-2 hidden md:block">Deliveries</span>
                     </a>
-                    <a href="" class="flex md:justify-start justify-center text-gray-600 mt-5">
+                    <a href="" class="flex md:justify-start justify-center text-gray-600 mt-1 hover:text-gray-700 focus:bg-gray-300 rounded-md p-2">
                         <svg aria-hidden="true" data-prefix="fas" data-icon="clipboard-list"
                             class="h-5 w-5 svg-inline--fa fa-clipboard-list fa-w-12" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384 512">
@@ -104,7 +104,7 @@
                         </svg>
                         <span class="mx-2 hidden md:block">Jobs</span>
                         <a href="{{route('enrollments.index')}}"
-                            class="flex md:justify-start justify-center text-gray-600 mt-5">
+                            class="flex md:justify-start justify-center text-gray-600 mt-1 hover:text-gray-700 focus:bg-gray-300 rounded-md p-2">
                             <svg aria-hidden="true" data-prefix="fas" data-icon="chart-pie"
                                 class="h-5 w-5  svg-inline--fa fa-chart-pie fa-w-17" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 544 512">
@@ -114,7 +114,7 @@
                             <span class="mx-2 hidden md:block">Enrollments</span>
                         </a>
                         <a href="{{route('subjects.index')}}"
-                            class="flex md:justify-start justify-center text-gray-600 mt-5">
+                            class="flex md:justify-start justify-center text-gray-600 mt-1 hover:text-gray-700 focus:bg-gray-300 rounded-md p-2">
                             <svg aria-hidden="true" data-prefix="fas" data-icon="tags"
                                 class="h-5 w-5  svg-inline--fa fa-tags fa-w-20" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 640 512">
@@ -124,8 +124,8 @@
                             <span class="mx-2 hidden md:block">Subjects</span>
                         </a>
 
-                        <button onclick="showMenu()"
-                            class="focus:outline-none flex md:justify-start justify-center text-gray-600 mt-5">
+                        <a onclick="showMenu()" href="#"
+                            class="focus:outline-none flex md:justify-start justify-center text-gray-600 mt-1 hover:text-gray-700 focus:bg-gray-300 rounded-md p-2">
                             <svg aria-hidden="true" data-prefix="fas" data-icon="user-graduate"
                                 class="h-5 w-5 svg-inline--fa fa-user-graduate fa-w-14"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -134,22 +134,29 @@
                             </svg>
                             <span class="mx-2 hidden md:block">Users</span>
 
-                        </button>
-                        <ul class="px-5" id="users-admin">
+                        </a>
+                        {{-- <ul class="px-5 hidden" id="users-admin">
                             <li><a href="">Profile</a></li>
                             <li><a href="">Admin Roles</a></li>
                             <li><a href="">Admin Users</a></li>
                             <li><a href="{{route('import')}}">Import Data</a></li>
-                        </ul>
+                        </ul> --}}
+                        <div class="hidden text-left md:ml-0 ml-20 pl-6 md:pl-8 text-gray-600" id="users-admin">
+                            <div class="py-1 hover:text-gray-700 ">
+                                <a href="">Profile</a>
+                            </div>
+                            <div class="py-1 hover:text-gray-700 ">
+                                <a href="">Admin Users</a>
+                            </div>
+                            <div class="py-1 hover:text-gray-700 ">
+                                <a href="{{route('import')}}">Import Data</a>
+                            </div>
+                        </div>
                 </div>
             </div>
 
 
-            <div class="main-content  md:w-10/12 w-full md:ml-5">
-
-
-
-
+            <div class="main-content md:w-10/12 w-full mx-10">
 
                 {{-- Mensaje de sesion --}}
                 <div class="container">
@@ -190,21 +197,21 @@
 
 
 
-                <div class="breadcrumbs w-auto p-1 mt-10 bg-gray-700 text-sm">
+                <div class="breadcrumbs w-auto p-1 mt-10 text-sm">
                     @foreach (request()->segments() as $segment)
                     @if ($loop->first)
                     <a href="/{{auth()->user()->roles()->first()->name}}">
-                        <span class="text-gray-100">Inicio</span>
+                        <span class="text-gray-500">Inicio</span>
                     </a>
                     @endif
 
                     <a href="{{url()->previous()}}">
-                        <b>></b> <span class="text-gray-100">{{$segment}}</span>
+                        <b>></b> <span class="text-gray-500">{{$segment}}</span>
                     </a>
 
                     @if ($loop->last)
                     <a href="{{url()->current()}}">
-                        <b>></b> <span class="text-gray-100">{{$segment}}</span>
+                        <b>></b> <span class="text-gray-500">{{$segment}}</span>
                     </a>
                     @endif
                     {{-- @if ($loop->last)

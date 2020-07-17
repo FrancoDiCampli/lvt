@@ -16,13 +16,13 @@ class TeacherController extends Controller
     {
         $this->middleware('role:teacher');
     }
-    
+
     public function index($id)
     {
         $subject = Subject::find($id);
         $subject->jobs;
 
-        $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->get();
+        $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->orderBy('created_at', 'DESC')->paginate(2);
 
         return view('admin.teachers.subject', compact('subject','posts'));
     }
