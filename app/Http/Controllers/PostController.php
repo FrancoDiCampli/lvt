@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    public function index($id)
+    {
+        $subject = Subject::find($id);
+        $subject->jobs;
+
+        $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->orderBy('created_at', 'DESC')->paginate(2);
+
+        return view('admin.teachers.subject', compact('subject','posts'));
+    }
+
     public function create($id)
     {
         $subject = Subject::find($id);
@@ -33,7 +44,7 @@ class PostController extends Controller
             'user_id'=>auth()->user()->id
         ]);
 
-        return redirect()->route('teacher.index',$request->subject_id);
+        return redirect()->route('posts.index',$request->subject_id);
     }
 
     /**

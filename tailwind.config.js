@@ -48,7 +48,7 @@ module.exports = {
                 '500': '#0E2A3F'
             },
             // 'green': '#00A17E'
-            green: {
+            greenschool: {
                 '100': '#40D5B4',
                 '200': '#00CCA0',
                 '300': '#00A17E',

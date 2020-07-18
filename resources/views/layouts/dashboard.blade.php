@@ -12,10 +12,14 @@
 <body class="bg-gray-100 font-montserrat" id="all">
 
     <main id="app" class="">
-        <div class="top-navbar w-full mx-auto flex items-center justify-between bg-gray-200 p-3 border-b border-gray-400">
-            <h1 class="text-teal-500 font-rubik text-2xl ml-6">School<span class="font-semibold">Mate</span></h1>
+        <div class="top-navbar w-full mx-auto flex items-center  bg-gray-200 p-3 border-b border-gray-400">
+                <a href="">
+                      <img src="{{asset('img/sm-sidebar-png.png')}}" class="md:w-16 md:h-16 w-12 h-12  pl-0 md:ml-10 ml-6 " alt="">
+                </a>
 
-            <div class="text-xs md:text-base text-right text-gray-600 ">
+            <h1 class="text-bluedark-400 font-rubik text-2xl ml-12 mr-10 w-auto hidden md:block">Félix<span class="font-semibold">Frías</span></h1>
+
+            <div class="text-xs md:text-base text-right text-gray-600 justify-end w-full">
                 <a href="" class="">admin@mail.com</a> |
                 <span>
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -29,7 +33,7 @@
                 </form>
             </div>
 
-            <div class="relative w-6/12 text-right">
+            <div class="relative md:w-0 w-2/12 text-right">
 
                 <div id="dropdown"
                     class="hidden transition-all delay-100 bg-white absolute right-0 text-sm text-left w-8/12 p-2 rounded-sm">
@@ -162,10 +166,10 @@
                 <div class="container">
                     @if (session('messages'))
                         <!--Toast-->
-                        <div class="alert-toast fixed bottom-auto md:top-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+                        <div class="alert-toast fixed bottom-auto md:top-0 right-0 m-8 w-5/6 md:w-full max-w-sm items-center">
                             <input type="checkbox" class="hidden" id="footertoast">
 
-                            <label class="close cursor-pointer flex items-start justify-between w-full pl-3 pt-3 bg-green-200 md:h-auto h-auto rounded shadow-lg text-white" title="close" for="footertoast">
+                            <label class="close cursor-pointer flex items-start justify-between w-full pl-3 pt-3 bg-greenschool-200 md:h-auto h-auto rounded shadow-lg text-white" title="close" for="footertoast">
                                 {{ session('messages') }}
 
                                 <svg class="fill-current text-white mr-4 mt-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">

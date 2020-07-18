@@ -22,9 +22,9 @@ class TeacherController extends Controller
         $subject = Subject::find($id);
         $subject->jobs;
 
-        $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->orderBy('created_at', 'DESC')->paginate(2);
+        // $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->orderBy('created_at', 'DESC')->paginate(2);
 
-        return view('admin.teachers.subject', compact('subject','posts'));
+        return view('admin.teachers.jobs.index', compact('subject'));
     }
 
     public function create($subject)

@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="card my-2 md:w-10/12 bg-white shadow-lg p-3 rounded-sm mx-auto flex items-center justify-between">
+<div class="card mt-6 md:w-10/12 bg-white shadow-lg p-3 rounded-sm mx-auto flex items-center justify-between">
     <div>
         <p class="text-md text-primary-500 font-semibold">LENGUA</p>
         <p class="text-sm text-primary-400">Priemro A</p>
     </div>
     <div>
-          <a href="{{route('teacher.index', $post->subject_id)}}" class="flex text-teal-600 font-semibold p-3 rounded-full hover:bg-gray-200 mx-1 focus:shadow-sm focus:outline-none">
+          <a href="{{route('posts.index', $post->subject_id)}}" class="flex text-teal-600 font-semibold p-3 rounded-full hover:bg-gray-200 mx-1 focus:shadow-sm focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" viewBox="0 0 306 306"><path data-original="#000000" class="active-path" data-old_color="#000000" fill="#A0AEC0" d="M247.35 35.7L211.65 0l-153 153 153 153 35.7-35.7L130.05 153z"/></svg>
           </a>
     </div>
