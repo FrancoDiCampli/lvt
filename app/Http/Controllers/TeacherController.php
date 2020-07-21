@@ -16,15 +16,15 @@ class TeacherController extends Controller
     {
         $this->middleware('role:teacher');
     }
-    
+
     public function index($id)
     {
         $subject = Subject::find($id);
         $subject->jobs;
 
-        $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->get();
+        // $posts = Post::where('user_id',Auth::user()->id)->where('subject_id',$id)->with('annotations')->orderBy('created_at', 'DESC')->paginate(2);
 
-        return view('admin.teachers.subject', compact('subject','posts'));
+        return view('admin.teachers.jobs.index', compact('subject'));
     }
 
     public function create($subject)
@@ -83,7 +83,7 @@ class TeacherController extends Controller
             return $item->student;
         });
 
-        return view('admin.teachers.showx', compact('job', 'entregas', 'alumnos'));
+        return view('admin.teachers.deliveries', compact('job', 'entregas', 'alumnos'));
     }
 
     public function showJob($id)

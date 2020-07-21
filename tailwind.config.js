@@ -6,6 +6,13 @@ module.exports = {
         roboto:['Roboto'],
         rubik:['Rubik']
     },
+    pagination: theme => ({
+        // Customize the color only. (optional)
+        color: theme('colors.primary.400'),
+        link: 'bg-white px-3 py-1 border-r border-t border-b text-gray-700 no-underline',
+        linkDisabled: 'bg-gray-300',
+
+    }),
     extend: {
         colors: {
             // 'primary': '#028C84',
@@ -41,7 +48,7 @@ module.exports = {
                 '500': '#0E2A3F'
             },
             // 'green': '#00A17E'
-            green: {
+            greenschool: {
                 '100': '#40D5B4',
                 '200': '#00CCA0',
                 '300': '#00A17E',
@@ -52,5 +59,7 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require('tailwindcss-plugins/pagination'),
+  ],
 }

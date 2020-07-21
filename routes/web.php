@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('teacher/descargar/{job}', 'TeacherController@descargar')->name('teacher.descargar');
     Route::get('teacher/descargarDelivery/{job}', 'TeacherController@descargarDelivery')->name('teacher.descargarDelivery');
     Route::post('teacher/filtrar', 'TeacherController@filtrar')->name('teacher.filtrar');
+    Route::get('teacher/deliveries/{job}', 'TeacherController@show')->name('teacher.deliveries');
     // Ver tarea con su entrega
     Route::get('entrega/{delivery}', 'TeacherController@delivery')->name('teacher.delivery');
 
@@ -75,9 +76,10 @@ Route::group(['middleware' => 'auth'], function () {
         return $request;
     });
 
-    Route::resource('posts', 'PostController')->except('create');
+    Route::resource('posts', 'PostController')->except('create', 'index');
     Route::resource('annotations', 'AnnotationController');
 
+    Route::get('posts/index/{subject}', 'PostController@index')->name('posts.index'); //agregado para index del post
     Route::get('newpost/{subject}','PostController@create')->name('new.post');
 });
 
