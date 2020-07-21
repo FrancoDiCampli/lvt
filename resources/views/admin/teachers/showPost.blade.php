@@ -4,8 +4,8 @@
 
 <div class="card mt-6 md:w-10/12 bg-white shadow-lg p-3 rounded-sm mx-auto flex items-center justify-between">
     <div>
-        <p class="text-md text-primary-500 font-semibold">LENGUA</p>
-        <p class="text-sm text-primary-400">Priemro A</p>
+        <p class="text-md text-primary-500 font-semibold">{{$post->subject->name}}</p>
+        <p class="text-sm text-primary-400">{{$post->subject->course->name}} </p>
     </div>
     <div>
           <a href="{{route('posts.index', $post->subject_id)}}" class="flex text-teal-600 font-semibold p-3 rounded-full hover:bg-gray-200 mx-1 focus:shadow-sm focus:outline-none">

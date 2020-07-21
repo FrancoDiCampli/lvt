@@ -83,7 +83,7 @@ class TeacherController extends Controller
             return $item->student;
         });
 
-        return view('admin.teachers.showx', compact('job', 'entregas', 'alumnos'));
+        return view('admin.teachers.deliveries', compact('job', 'entregas', 'alumnos'));
     }
 
     public function showJob($id)
