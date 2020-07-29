@@ -161,6 +161,15 @@
 .form-input{
     @apply leading-tight appearance-none bg-gray-200 text-gray-700 border-b-2 border-gray-400 py-3 px-4;
 }
+/* Clase input control */
+.form-control{
+    @apply leading-tight appearance-none;
+}
+/* Clase input control error */
+.form-input-error{
+    @apply leading-tight appearance-none border-b-2 border-red-600;
+}
+
 
 .form-input:hover{
     @apply bg-gray-300;
@@ -168,6 +177,11 @@
 
 .form-input:focus{
     @apply outline-none bg-white border-primary-400;
+}
+
+/* Clase input focus error */
+.form-input-error:focus{
+    @apply outline-none bg-white border-red-600;
 }
 
 

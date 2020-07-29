@@ -46,12 +46,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('teacher/descargarDelivery/{job}', 'TeacherController@descargarDelivery')->name('teacher.descargarDelivery');
     Route::post('teacher/filtrar', 'TeacherController@filtrar')->name('teacher.filtrar');
     Route::get('teacher/deliveries/{job}', 'TeacherController@show')->name('teacher.deliveries');
+    Route::post('add/JobComment','TeacherController@addJobComment')->name('JobComment.store');
     // Ver tarea con su entrega
     Route::get('entrega/{delivery}', 'TeacherController@delivery')->name('teacher.delivery');
 
     // Asesores
     Route::get('showJob/{id}','AdviserController@showJob')->name('adviser.showJob');
     Route::put('updateJob/{id}','AdviserController@updateJob')->name('adviser.updateJob');
+    Route::get('adviserEraser','AdviserController@eraser')->name('adviser.eraser');
+    Route::get('adviserActive','AdviserController@active')->name('adviser.active');
+    Route::get('adviserRejected','AdviserController@rejected')->name('adviser.rejected');
 
     Route::resource('subjects', 'SubjectController');
 

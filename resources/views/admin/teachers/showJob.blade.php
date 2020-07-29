@@ -84,37 +84,62 @@
         </div>
 
         <div class="flex justify-center p-2">
-            {{-- Youtube --}}
-            {{-- <iframe height="600" width="800" src="{{$job->link}}"></iframe> --}}
-            {{-- <iframe id="viewer" height="600" width="800" src="{{asset('tareas/'. $job->file_path)}}" frameborder="0"></iframe> --}}
-            <iframe id="viewer" src="{{asset('tareas/'. $job->file_path)}}" frameborder="0" class="w-full h-64 md:h-screen"></iframe>
+             {{-- Youtube --}}
+             @if ($job->link)
+             <iframe id="player" type="text/html" width="640" height="360"
+                 src="http://www.youtube.com/embed/{{$job->link}}" frameborder="0" allowfullscreen></iframe>
+             @endif
         </div>
 
-        @if ($job->link)
-            <div class="flex justify-center mt-6">
-                    <div class="w-full flex relative items-center border-t pt-4">
-                        <div class="p-2 w-16 h-16 items-center">
-                            {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6"><path d="M4 6.75A4.756 4.756 0 018.75 2h9.133a2.745 2.745 0 00-2.633-2H3.75A2.752 2.752 0 001 2.75v15.5A2.752 2.752 0 003.75 21H4z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFF"/><path d="M20.25 4H8.75A2.752 2.752 0 006 6.75v14.5A2.752 2.752 0 008.75 24h11.5A2.752 2.752 0 0023 21.25V6.75A2.752 2.752 0 0020.25 4zm-2 17h-7.5a.75.75 0 010-1.5h7.5a.75.75 0 010 1.5zm0-4h-7.5a.75.75 0 010-1.5h7.5a.75.75 0 010 1.5zm0-3.5h-7.5a.75.75 0 010-1.5h7.5a.75.75 0 010 1.5zm0-4h-7.5a.75.75 0 010-1.5h7.5a.75.75 0 010 1.5z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFF"/></svg> --}}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.867 477.867" class="w-10 h-10 inline-block"><path d="M238.933 0C106.974 0 0 106.974 0 238.933s106.974 238.933 238.933 238.933 238.933-106.974 238.933-238.933C477.726 107.033 370.834.141 238.933 0zm0 443.733c-113.108 0-204.8-91.692-204.8-204.8s91.692-204.8 204.8-204.8 204.8 91.692 204.8 204.8c-.122 113.058-91.742 204.678-204.8 204.8z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#1E5E7F"/><path d="M339.557 231.32a17.068 17.068 0 00-7.662-7.662l-136.533-68.267c-8.432-4.213-18.682-.794-22.896 7.638a17.068 17.068 0 00-1.8 7.637V307.2c-.004 9.426 7.633 17.07 17.059 17.075a17.068 17.068 0 007.637-1.8l136.533-68.267c8.436-4.204 11.867-14.452 7.662-22.888zM204.8 279.586V198.28l81.306 40.653-81.306 40.653z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#1E5E7F"/></svg>
-                        </div>
-                        <div class="flex w-full">
-                            <div class="w-full">
-                                <h1 class="font-semibold text-gray-800 text-md">
-                                    Recurso Audiosivual
-                                </h1>
-                                <div class="text-sm text-gray-700">
-                                    <a href="{{$job->link}}" target="_blank">
-                                        Clic para ver
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        @endif
+        <div class="flex justify-center p-2 mt-2">
+            <iframe id="viewer" height="600" width="800" src="http://docs.google.com/gview?url={{$file}}&time=0&embedded=true"
+                frameborder="0"></iframe>
+        </div>
 
+
+        {{-- Comentarios --}}
         <div class="border-t mt-3 flex pt-3 text-gray-700 text-sm">
-            {{-- Movimientos de la tarea --}}
+            <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+            </svg>
+            <span>{{count($job->comments)}} Comentarios de la tarea</span>
+        </div>
+
+        <div class="flex justify-start mt-2 mb-8">
+            <div class="w-full">
+                @foreach ($job->comments as $item)
+                <div class=" w-full flex relative items-center mt-3">
+                    <div class="p-2">
+                        <img class="w-8 h-8 rounded-full object-cover mr-1 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar">
+                    </div>
+
+                    <div class="w-full">
+                        <h2 class="text-sm font-medium text-gray-900">{{$item->user->name}} </h2>
+                        <p class="text-gray-700 font-light text-xs">{{$item->created_at}} </p>
+
+                    </div>
+                </div>
+
+                <div class="text-sm text-gray-700 w-full px-2">
+                    <p class="text-sm font-medium text-gray-900 ml-10">{{$item->comment}}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="border-t mt-3 mb-6 pt-6 text-gray-700 text-sm w-full">
+            <form action="{{route('JobComment.store')}}" method="POST">
+                @csrf
+                <input type="text" name="job" value="{{$job->id}}" hidden>
+                <div
+                    class="border border-gray-400 bg-white h-10 rounded-sm py-1 content-center flex items-center">
+                    <input name="comment" type="text" class="bg-transparent focus:outline-none w-full text-sm p-2 text-gray-800" placeholder="Agregar un comentario" value="{{ old('comment') }}">
+                    <button type="submit" class="text-teal-600 font-semibold p-2 rounded-full hover:bg-gray-200 mx-1 focus:shadow-sm focus:outline-none">
+                        {{-- <svg aria-hidden="true" data-prefix="fas" data-icon="info" class="h-4 w-4 svg-inline--fa fa-info fa-w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M20 424.229h20V279.771H20c-11.046 0-20-8.954-20-20V212c0-11.046 8.954-20 20-20h112c11.046 0 20 8.954 20 20v212.229h20c11.046 0 20 8.954 20 20V492c0 11.046-8.954 20-20 20H20c-11.046 0-20-8.954-20-20v-47.771c0-11.046 8.954-20 20-20zM96 0C56.235 0 24 32.235 24 72s32.235 72 72 72 72-32.235 72-72S135.764 0 96 0z"/></svg> --}}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 485.725 485.725"  class="h-5 w-5 svg-inline--fa fa-info fa-w-6"><path d="M459.835 196.758L73.531 9.826C48.085-2.507 17.46 8.123 5.126 33.569a51.198 51.198 0 00-1.449 41.384l60.348 150.818h421.7a50.787 50.787 0 00-25.89-29.013zM64.025 259.904L3.677 410.756c-10.472 26.337 2.389 56.177 28.726 66.65a51.318 51.318 0 0018.736 3.631c7.754 0 15.408-1.75 22.391-5.12l386.304-187a50.79 50.79 0 0025.89-29.013H64.025z" data-original="#000000" class="hovered-path active-path" data-old_color="#000000" fill="#374957"/></svg>
+                    </button>
+                </div>
+            </form>
         </div>
 
 
@@ -136,6 +161,10 @@
             let marco = document.getElementById('viewer');
             marco.setAttribute('height',200);
             marco.setAttribute('width',270);
+
+            let marco2 = document.getElementById('player');
+            marco2.setAttribute('height',200);
+            marco2.setAttribute('width',270);
         }
 
 
@@ -163,6 +192,7 @@
             oo.classList.toggle('hidden')
 
         }
+
 </script>
 
 @endpush

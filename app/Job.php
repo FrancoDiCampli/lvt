@@ -26,6 +26,12 @@ class Job extends Model
         return $this->hasMany(Delivery::class)->with('user');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\JobComment');
+    }
+
+
     protected $casts = [
         'start' => 'datetime:d-m-Y',
         'end' => 'datetime:d-m-Y'

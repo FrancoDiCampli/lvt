@@ -27,7 +27,7 @@
                 </div>
                 <div class="px-6 py-4 font-montserrat w-auto flex justify-between items-center">
                     <p class="text-gray-700 text-sm">
-                        20 Alumnos
+                        {{count($subject->course->enrollments)}} Alumnos
                     </p>
 
                     <div class="w-auto flex justify-between items-center">
