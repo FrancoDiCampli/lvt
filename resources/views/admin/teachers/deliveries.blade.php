@@ -2,7 +2,6 @@
 
 @section('content')
 
-{{-- Nuevo --}}
 {{-- nuevo --}}
 <div class="card mt-6 md:w-10/12 bg-white shadow-lg p-3 rounded-sm mx-auto flex items-center justify-between">
     <div>

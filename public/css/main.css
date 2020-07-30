@@ -20041,6 +20041,28 @@ video {
   padding-right: 1rem;
 }
 
+/* Clase input control */
+
+.form-control{
+  line-height: 1.25;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+/* Clase input control error */
+
+.form-input-error{
+  line-height: 1.25;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border-bottom-width: 2px;
+  --border-opacity: 1;
+  border-color: #e53e3e;
+  border-color: rgba(229, 62, 62, var(--border-opacity));
+}
+
 .form-input:hover{
   --bg-opacity: 1;
   background-color: #e2e8f0;
@@ -20055,6 +20077,18 @@ video {
   --border-opacity: 1;
   border-color: #028C84;
   border-color: rgba(2, 140, 132, var(--border-opacity));
+}
+
+/* Clase input focus error */
+
+.form-input-error:focus{
+  outline: 0;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --border-opacity: 1;
+  border-color: #e53e3e;
+  border-color: rgba(229, 62, 62, var(--border-opacity));
 }
 
 /* Tab content - closed */

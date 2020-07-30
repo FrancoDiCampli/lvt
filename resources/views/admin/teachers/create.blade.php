@@ -16,7 +16,7 @@
               </a>
         </div>
         <div class="card-body py-4">
-            <form method="POST" action="{{route('teachers.store')}}" enctype="multipart/form-data" class="mx-auto" >
+            <form method="POST" action="{{route('teachers.store')}}" enctype="multipart/form-data" class="mx-auto" id="form">
                 @csrf
 
                 <input hidden type="text" name="subject" id="" value="{{$subject->id}}">
@@ -26,8 +26,8 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                           Título
                         </label>
-                        <input type="text" id="title" name="title" class="form-input w-full block" id="grid-last-name" type="text" placeholder="Título de la tarea" value="{{ old('title') }}">
-                        <span class="flex italic text-red-600  text-sm" role="alert">
+                        <input type="text" id="title" onkeyup="setTitle()" name="title" class="form-input w-full block" id="grid-last-name" type="text" placeholder="Título de la tarea" value="{{ old('title') }}"  autocomplete="off">
+                        <span class="flex italic text-red-600  text-sm" role="alert" id="titleError">
                             {{$errors->first('title')}}
                         </span>
                     </div>
@@ -38,8 +38,8 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                           Descripción/Instrucciones
                         </label>
-                        <textarea name="description" id="description" cols="30" rows="10" class="form-input w-full block" id="grid-last-name" type="text" placeholder="Descripción o instrucciones de la tarea" value=""></textarea>
-                        <span class="flex italic text-red-600  text-sm" role="alert">
+                        <textarea name="description" id="description" onkeyup="setDescription()" cols="30" rows="10" class="form-input w-full block" id="grid-last-name" type="text" placeholder="Descripción o instrucciones de la tarea" value="" maxlength="3001"></textarea>
+                        <span class="flex italic text-red-600  text-sm" role="alert" id="descriptionError">
                             {{$errors->first('content')}}
                         </span>
                     </div>
@@ -89,7 +89,7 @@
                         <div class="relative">
                             <div class="overflow-hidden relative w-auto mt-4 mb-4">
                                 <div class="flex items-center justify-center bg-grey-lighter">
-                                    <label
+                                    <label id="file"
                                         class="w-full flex flex-col items-center px-4 py-4 bg-gray-200 text-gray-700 border-b-2 border-gray-400 tracking-wide uppercase cursor-pointer hover:text-primary-300 hover:bg-gray-300">
                                         <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20">
@@ -98,14 +98,14 @@
                                         </svg>
                                         <span class="mt-2 text-sm leading-normal" id="selected">Select a file</span>
                                         <input type='file' class="hidden" name="file" id="fileName"
-                                            onchange="setName()" />
+                                            onchange="setName()"/>
                                     </label>
                                 </div>
+                                <span class="flex italic text-red-600  text-sm" role="alert" id="fileError">
+                                    {{$errors->first('title')}}
+                                </span>
                             </div>
                         </div>
-                        <span class="flex italic text-red-600  text-sm" role="alert">
-                            {{$errors->first('title')}}
-                        </span>
                     </div>
                 </div>
 
@@ -202,6 +202,98 @@
             marco.setAttribute('width',270);
         }
         toggleModal();
+
+        //valifación input file
+        if(fileName.value.length != 0){
+            document.getElementById("fileError").innerHTML = ""
+            file.classList.remove("border-red-500")
+        }
+        else{
+            document.getElementById("fileError").innerHTML = "El campo es obligatorio"
+            file.classList.add("border-red-500")
+        }
     }
+
+    //Validaciones
+    const form = document.getElementById("form")
+    const title = document.getElementById("title")
+    const description = document.getElementById("description")
+    const fileName = document.getElementById("fileName")
+    const file = document.getElementById("file")
+    const titleError = document.getElementById("titleError")
+    const descriptionError = document.getElementById("descriptionError")
+
+    form.addEventListener("submit", e=>{
+
+        titleError.innerHTML = ""
+        // title.className = "form-input w-full block"
+        // if (title.value.length >= 6){
+        //     e.preventDefault()
+        //     document.getElementById("titleError").innerHTML = "No puede superar los 5 caracteres"
+        //     title.className = 'form-input form-input-error w-full block'
+        // }
+        // if (title.value.length === 0){
+        //     e.preventDefault()
+        //     document.getElementById("titleError").innerHTML = "El campo es obligatorio"
+        //     title.className = 'form-input form-input-error w-full block'
+        // }
+        if (description.value.length > 3000){
+            e.preventDefault()
+            document.getElementById("descriptionError").innerHTML = "No puede tener más de 3000 caracteres"
+            description.className = 'form-input form-input-error w-full block'
+        }
+        if (description.value.length === 0){
+            e.preventDefault()
+            document.getElementById("descriptionError").innerHTML = "El campo es obligatorio"
+            description.className = 'form-input form-input-error w-full block'
+        }
+
+
+
+        // fileDocument = document.getElementById("fileName").files[0];
+        if(fileName.value.length != 0){
+            document.getElementById("fileError").innerHTML = ""
+            file.classList.remove("border-red-500")
+        }
+        else{
+            e.preventDefault()
+            document.getElementById("fileError").innerHTML = "El campo es obligatorio"
+            file.classList.add("border-red-500")
+        }
+
+
+
+
+
+
+    })
+
+    // set title
+    // function setTitle(){
+    //     if (title.value.length >= 6){
+    //         document.getElementById("titleError").innerHTML = "No puede tener más de 5 caracteres"
+    //         title.classList.add("form-input-error")
+    //     }
+    //     if (title.value.length < 6){
+    //         document.getElementById("titleError").innerHTML = ""
+    //         title.classList.remove("form-input-error")
+    //     }
+    // }
+
+    // set description
+    function setDescription(){
+        if (description.value.length > 3000){
+            document.getElementById("descriptionError").innerHTML = "No puede tener más de 3000 caracteres"
+            description.classList.add("form-input-error")
+        }
+        if (description.value.length <= 3000){
+            document.getElementById("descriptionError").innerHTML = ""
+            description.classList.remove("form-input-error")
+        }
+
+    }
+
+
+
 </script>
 @endpush

@@ -80,7 +80,7 @@
                     rounded-sm text-left">
                         <a href="{{route('teachers.edit',$job->id)}}" class="block py-2">Editar</a>
 
-                        <a href="" class="block py-2">Eliminar</a>
+                        <a href="" class="block py-2">Borrador</a>
                     </div>
                 </div>
             </div>

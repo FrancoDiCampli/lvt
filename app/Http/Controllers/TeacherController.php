@@ -6,6 +6,7 @@ use App\Job;
 use App\Post;
 use App\Subject;
 use App\Delivery;
+use App\JobComment;
 use App\Traits\FilesTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class TeacherController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:teacher');
+        $this->middleware('role:teacher')->except('addJobComment');
     }
 
     public function index($id)
@@ -43,8 +44,11 @@ class TeacherController extends Controller
             'link' => 'nullable|url',
             'file' => 'required|file',
             'start' => 'date',
-            'end' => 'date|after_or_equal:'.$request->start
+            'end' => 'date|after_or_equal:'.$request->start,
+            'comment' => 'nullable|min:3'
         ]);
+
+        $vid = substr($data['link'], -11);
 
         $nameFile = FilesTrait::store($request, $ubicacion = 'tareas', $nombre = $subject->name);
 
@@ -52,16 +56,25 @@ class TeacherController extends Controller
             $data['subject_id'] = $data['subject'];
             $data['state'] = 0;
 
-            Job::create([
+            $job = Job::create([
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'subject_id' => $data['subject'],
                 'file_path' => $nameFile,
-                'link' => $data['link'],
+                'link' => $vid,
                 'start' => $data['start'],
                 'end' => $data['end'],
                 'state' => 0,
             ]);
+
+            // Si tiene comentarios los crea
+            // if ($request->comment) {
+            //     JobComment::create([
+            //         'user_id' => Auth::user()->id,
+            //         'job_id' => $job->id,
+            //         'comment' => $data['comment'],
+            //     ]);
+            // }
         }
         session()->flash('messages', 'Tarea creada');
         return redirect()->action('TeacherController@index', $subject->id);
@@ -89,7 +102,8 @@ class TeacherController extends Controller
     public function showJob($id)
     {
         $job = Job::find($id);
-        return view('admin.teachers.showJob', compact('job'));
+        $file = url('tareas/'.$job->file_path);
+        return view('admin.teachers.showJob', compact('job','file'));
     }
 
     public function edit($id)
@@ -110,6 +124,7 @@ class TeacherController extends Controller
             'end' => 'date'
         ]);
         $data['subject_id'] = $subject->id;
+        $data['state'] = 0;
 
         if ($request->file) {
             $nameFile = FilesTrait::update($request, 'tareas', $subject->name, $job);
@@ -153,5 +168,19 @@ class TeacherController extends Controller
         $delivery =  Delivery::find($delivery);
         $delivery->comments;
         return view('admin.teachers.delivery', compact('delivery'));
+    }
+
+    public function addJobComment(Request $request)
+    {
+        $datos = $request->validate([
+            'comment' => 'min:3',
+        ]);
+        JobComment::create([
+            'user_id' => Auth::user()->id,
+            'job_id' => $request->job,
+            'comment' => $datos['comment'],
+        ]);
+
+        return redirect()->back();
     }
 }

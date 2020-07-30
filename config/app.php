@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
-        App\Providers\TenancyProvider::class,
+        // App\Providers\TenancyProvider::class,
 
     ],
 

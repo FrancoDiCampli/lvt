@@ -15,7 +15,7 @@ class StudentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:student')->except('updateDelivery');
+        $this->middleware('role:student')->except('updateDelivery','addComment');
         $this->middleware('role:teacher')->only('updateDelivery');
     }
 
